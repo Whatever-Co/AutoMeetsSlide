@@ -152,11 +152,18 @@ async def cmd_process(file_path: str, output_dir: str):
             source = await client.sources.add_file(notebook_id, str(file_path))
             emit("progress", f"Source uploaded: {source.id}")
 
+            # Wait for source to be processed
+            emit("progress", "Waiting for source to be processed...")
+            ready_source = await client.sources.wait_until_ready(
+                notebook_id, source.id, timeout=300.0  # 5 minutes for audio
+            )
+            emit("progress", f"Source ready: {ready_source.title}")
+
             # Generate slides
             emit("progress", "Generating slide deck...")
             status = await client.artifacts.generate_slide_deck(
                 notebook_id,
-                instructions="Create a comprehensive slide deck from this content."
+                instructions="この内容から包括的なスライドデッキを日本語で作成してください。"
             )
             emit("progress", f"Generation started, task_id: {status.task_id}")
 

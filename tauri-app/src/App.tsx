@@ -34,22 +34,14 @@ function App() {
   };
 
   const runSidecar = async (args: string[]): Promise<void> => {
-    addLog("info", `[CMD] Running: run-sidecar ${args.join(" ")}`);
+    addLog("info", `[CMD] Running: notebooklm-cli ${args.join(" ")}`);
 
-    try {
-      const command = new Command("run-sidecar", [
-        "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/python-sidecar/notebooklm_sidecar.py",
-        ...args
-      ]);
-      addLog("info", "[CMD] Command created");
+    return new Promise((resolve, reject) => {
+      try {
+        const command = Command.sidecar("binaries/notebooklm-cli", args);
+        addLog("info", "[CMD] Sidecar command created");
 
-      const result = await command.execute();
-      addLog("info", `[execute] code=${result.code}`);
-
-      // Parse stdout (each line is a JSON object)
-      if (result.stdout) {
-        const lines = result.stdout.trim().split("\n");
-        for (const line of lines) {
+        const handleLine = (line: string) => {
           addLog("info", `[stdout] ${line}`);
           try {
             const json = JSON.parse(line);
@@ -72,15 +64,30 @@ function App() {
           } catch {
             addLog("info", `[raw] ${line}`);
           }
-        }
-      }
+        };
 
-      if (result.stderr) {
-        addLog("error", `[stderr] ${result.stderr}`);
+        command.stdout.on("data", handleLine);
+        command.stderr.on("data", (line: string) => {
+          addLog("error", `[stderr] ${line}`);
+        });
+
+        command.on("close", (data: { code: number }) => {
+          addLog("info", `[close] code=${data.code}`);
+          resolve();
+        });
+
+        command.on("error", (error: Error) => {
+          addLog("error", `[CMD error] ${error}`);
+          reject(error);
+        });
+
+        command.spawn();
+        addLog("info", "[CMD] Process spawned");
+      } catch (e) {
+        addLog("error", `[CMD error] ${e}`);
+        reject(e);
       }
-    } catch (e) {
-      addLog("error", `[CMD error] ${e}`);
-    }
+    });
   };
 
   const checkAuth = async () => {

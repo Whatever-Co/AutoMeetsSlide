@@ -15,12 +15,11 @@
       "all": false,
       "shell": {
         "all": false,
-        "execute": true,
         "sidecar": true,
         "scope": [
           {
-            "name": "run-sidecar",
-            "cmd": "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/python-sidecar/.venv/bin/python",
+            "name": "binaries/notebooklm-cli",
+            "sidecar": true,
             "args": true
           }
         ]

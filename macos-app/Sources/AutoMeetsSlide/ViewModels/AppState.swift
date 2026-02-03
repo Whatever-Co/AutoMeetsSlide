@@ -34,11 +34,30 @@ class AppState {
         isCheckingAuth = true
         defer { isCheckingAuth = false }
 
+        Log.auth.info("checkAuth started")
+
+        // First, try to authenticate using Safari cookies if no valid storage state
+        if !AuthService.hasValidStorageState() {
+            Log.auth.info("No valid storage state, trying silent auth with Safari cookies...")
+            let authenticated = await AuthService.tryAuthenticateWithSafariCookies()
+            if authenticated {
+                Log.auth.info("Successfully authenticated with Safari cookies")
+            } else {
+                Log.auth.info("Silent auth failed, will show login button")
+            }
+        } else {
+            Log.auth.info("Valid storage state exists, skipping silent auth")
+        }
+
+        // Now verify with sidecar
         do {
+            Log.auth.info("Running sidecar check-auth...")
             let response = try await sidecarManager.run(.checkAuth)
-            isAuthenticated = response?.authenticated ?? false
+            let authenticated = response?.authenticated ?? false
+            Log.auth.info("Sidecar auth result: \(authenticated)")
+            isAuthenticated = authenticated
         } catch {
-            print("Auth check failed: \(error)")
+            Log.auth.error("Auth check failed: \(error.localizedDescription)")
             isAuthenticated = false
         }
     }

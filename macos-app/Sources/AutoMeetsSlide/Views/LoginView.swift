@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Login screen with Google sign-in button
 struct LoginView: View {
-    @State private var appState = AppState.shared
+    private var appState: AppState { AppState.shared }
     @State private var showWebView = false
 
     var body: some View {
@@ -49,7 +49,7 @@ struct LoginView: View {
 /// Sheet containing the Google login WebView
 struct GoogleLoginSheet: View {
     @Binding var isPresented: Bool
-    @State private var appState = AppState.shared
+    private var appState: AppState { AppState.shared }
 
     var body: some View {
         VStack(spacing: 0) {

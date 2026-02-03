@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 
 /// Main app view after authentication
 struct MainView: View {
-    @State private var appState = AppState.shared
+    private var appState: AppState { AppState.shared }
     @State private var isDragOver = false
 
     var body: some View {

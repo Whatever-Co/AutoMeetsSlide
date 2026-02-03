@@ -17,10 +17,12 @@
 		839BB4C264DF156CA353B500 /* AutoMeetsSlideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185A72E7A243CDC317BE5141 /* AutoMeetsSlideApp.swift */; };
 		88DE4C211241B2B163EF7425 /* StorageStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */; };
 		928B98EDA9CBC2AABC7A6FB8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F2F52AD3E0649E6E8F7F6A /* FileItem.swift */; };
+		9E7A0030E797D7F70874308E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083494EC544E82A9CE706B33 /* Logger.swift */; };
 		F9753883C4D272A280497C49 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8F6B6FEB48C0152E9D4E0 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		083494EC544E82A9CE706B33 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		083843296D269C41860EC26B /* AutoMeetsSlide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoMeetsSlide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		185A72E7A243CDC317BE5141 /* AutoMeetsSlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMeetsSlideApp.swift; sourceTree = "<group>"; };
 		21F2EC41C671271D440582EE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				E2A69E71177C1A88C53CFE89 /* Models */,
 				DC8E5C4DC69C12AC2F887F00 /* Resources */,
 				030CFA05D5503757EF539CA5 /* Services */,
+				B52A8A9A48E14E67AF41AC4B /* Utilities */,
 				0FD1532C318FF87E58F26F52 /* ViewModels */,
 				99814B09DE9F52CBE88CAB95 /* Views */,
 			);
@@ -97,6 +100,14 @@
 				21F2EC41C671271D440582EE /* MainView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B52A8A9A48E14E67AF41AC4B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				083494EC544E82A9CE706B33 /* Logger.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		B9B36DCE9FACB47C1FB6C66B /* Products */ = {
@@ -200,6 +211,7 @@
 				71EE8E744970F60CC7A41532 /* ContentView.swift in Sources */,
 				928B98EDA9CBC2AABC7A6FB8 /* FileItem.swift in Sources */,
 				62E757AAB4D9D8C1606A8F89 /* GoogleLoginWebView.swift in Sources */,
+				9E7A0030E797D7F70874308E /* Logger.swift in Sources */,
 				F9753883C4D272A280497C49 /* LoginView.swift in Sources */,
 				1975D6E3E9E3CAF60879AAEB /* MainView.swift in Sources */,
 				294F48FD807BFD9FCD5F7117 /* SidecarManager.swift in Sources */,

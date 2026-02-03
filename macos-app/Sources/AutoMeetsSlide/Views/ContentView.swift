@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Root view that handles authentication routing
 struct ContentView: View {
-    @State private var appState = AppState.shared
+    private var appState: AppState { AppState.shared }
 
     var body: some View {
         Group {

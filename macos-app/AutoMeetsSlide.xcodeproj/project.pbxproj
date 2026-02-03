@@ -1,0 +1,432 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01A2535847D284BCD65DC244 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBFC469A1A0EB26FD06573 /* Assets.xcassets */; };
+		1975D6E3E9E3CAF60879AAEB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F2EC41C671271D440582EE /* MainView.swift */; };
+		294F48FD807BFD9FCD5F7117 /* SidecarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE57EAA20E9EB6B5ACAC59E /* SidecarManager.swift */; };
+		398EF0FD476C644282A5630B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3207FD96B90EDC37C396AAB /* AuthService.swift */; };
+		62E757AAB4D9D8C1606A8F89 /* GoogleLoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2460B6E18673354E9B6469FA /* GoogleLoginWebView.swift */; };
+		71EE8E744970F60CC7A41532 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E3222883B927ED9FB3A3D /* ContentView.swift */; };
+		7A7F332979D6A47FA73A5CF0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0BC722B688061102458E38 /* AppState.swift */; };
+		839BB4C264DF156CA353B500 /* AutoMeetsSlideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185A72E7A243CDC317BE5141 /* AutoMeetsSlideApp.swift */; };
+		88DE4C211241B2B163EF7425 /* StorageStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */; };
+		9133B069BC172D908F355CF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99EE45DFFB785CF126403E8F /* Assets.xcassets */; };
+		928B98EDA9CBC2AABC7A6FB8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F2F52AD3E0649E6E8F7F6A /* FileItem.swift */; };
+		F9753883C4D272A280497C49 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8F6B6FEB48C0152E9D4E0 /* LoginView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		083843296D269C41860EC26B /* AutoMeetsSlide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoMeetsSlide.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		185A72E7A243CDC317BE5141 /* AutoMeetsSlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMeetsSlideApp.swift; sourceTree = "<group>"; };
+		21F2EC41C671271D440582EE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		2460B6E18673354E9B6469FA /* GoogleLoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginWebView.swift; sourceTree = "<group>"; };
+		2E2E3222883B927ED9FB3A3D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3EE8F6B6FEB48C0152E9D4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageStateConverter.swift; sourceTree = "<group>"; };
+		70F2F52AD3E0649E6E8F7F6A /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
+		73A7F62AABF4B316E367864C /* AutoMeetsSlide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoMeetsSlide.entitlements; sourceTree = "<group>"; };
+		7FE57EAA20E9EB6B5ACAC59E /* SidecarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidecarManager.swift; sourceTree = "<group>"; };
+		8FCBFC469A1A0EB26FD06573 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		99EE45DFFB785CF126403E8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A7905C2F4F70E1C3B385F5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EE0BC722B688061102458E38 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		F3207FD96B90EDC37C396AAB /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		030CFA05D5503757EF539CA5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3207FD96B90EDC37C396AAB /* AuthService.swift */,
+				7FE57EAA20E9EB6B5ACAC59E /* SidecarManager.swift */,
+				4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0FD1532C318FF87E58F26F52 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EE0BC722B688061102458E38 /* AppState.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		2CA146E8A15AE704B3A9B0E0 /* AutoMeetsSlide */ = {
+			isa = PBXGroup;
+			children = (
+				73A7F62AABF4B316E367864C /* AutoMeetsSlide.entitlements */,
+				185A72E7A243CDC317BE5141 /* AutoMeetsSlideApp.swift */,
+				A7905C2F4F70E1C3B385F5B1 /* Info.plist */,
+				7F8B05E667348BDBFA9B317C /* Components */,
+				E2A69E71177C1A88C53CFE89 /* Models */,
+				DC8E5C4DC69C12AC2F887F00 /* Resources */,
+				030CFA05D5503757EF539CA5 /* Services */,
+				88B5AF2005D2DDE02756583C /* Sources */,
+				0FD1532C318FF87E58F26F52 /* ViewModels */,
+				99814B09DE9F52CBE88CAB95 /* Views */,
+			);
+			name = AutoMeetsSlide;
+			path = Sources/AutoMeetsSlide;
+			sourceTree = "<group>";
+		};
+		403BB5BEAA2F7A7C33744C6E = {
+			isa = PBXGroup;
+			children = (
+				2CA146E8A15AE704B3A9B0E0 /* AutoMeetsSlide */,
+				B9B36DCE9FACB47C1FB6C66B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		61988A1D3B49CA4160F1A40D /* AutoMeetsSlide */ = {
+			isa = PBXGroup;
+			children = (
+				F21A557439B4CDCEE59FF4F2 /* Resources */,
+			);
+			path = AutoMeetsSlide;
+			sourceTree = "<group>";
+		};
+		7F8B05E667348BDBFA9B317C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2460B6E18673354E9B6469FA /* GoogleLoginWebView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		88B5AF2005D2DDE02756583C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				61988A1D3B49CA4160F1A40D /* AutoMeetsSlide */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		99814B09DE9F52CBE88CAB95 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2E2E3222883B927ED9FB3A3D /* ContentView.swift */,
+				3EE8F6B6FEB48C0152E9D4E0 /* LoginView.swift */,
+				21F2EC41C671271D440582EE /* MainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9B36DCE9FACB47C1FB6C66B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				083843296D269C41860EC26B /* AutoMeetsSlide.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC8E5C4DC69C12AC2F887F00 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8FCBFC469A1A0EB26FD06573 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E2A69E71177C1A88C53CFE89 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				70F2F52AD3E0649E6E8F7F6A /* FileItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F21A557439B4CDCEE59FF4F2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				99EE45DFFB785CF126403E8F /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		981F36AF27AFBB60762D725B /* AutoMeetsSlide */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6073709C3EF0832D86E60A81 /* Build configuration list for PBXNativeTarget "AutoMeetsSlide" */;
+			buildPhases = (
+				1BDAA08F4C2FD6C0CDDCEBD9 /* Sources */,
+				CB5C153154CB72FBCF7766CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoMeetsSlide;
+			packageProductDependencies = (
+			);
+			productName = AutoMeetsSlide;
+			productReference = 083843296D269C41860EC26B /* AutoMeetsSlide.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		91F8F5818F7E471DE8CF9906 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					981F36AF27AFBB60762D725B = {
+						DevelopmentTeam = G5G54TCH8W;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B112BE2B79AECED706FD544A /* Build configuration list for PBXProject "AutoMeetsSlide" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 403BB5BEAA2F7A7C33744C6E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				981F36AF27AFBB60762D725B /* AutoMeetsSlide */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CB5C153154CB72FBCF7766CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A2535847D284BCD65DC244 /* Assets.xcassets in Resources */,
+				9133B069BC172D908F355CF1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1BDAA08F4C2FD6C0CDDCEBD9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7F332979D6A47FA73A5CF0 /* AppState.swift in Sources */,
+				398EF0FD476C644282A5630B /* AuthService.swift in Sources */,
+				839BB4C264DF156CA353B500 /* AutoMeetsSlideApp.swift in Sources */,
+				71EE8E744970F60CC7A41532 /* ContentView.swift in Sources */,
+				928B98EDA9CBC2AABC7A6FB8 /* FileItem.swift in Sources */,
+				62E757AAB4D9D8C1606A8F89 /* GoogleLoginWebView.swift in Sources */,
+				F9753883C4D272A280497C49 /* LoginView.swift in Sources */,
+				1975D6E3E9E3CAF60879AAEB /* MainView.swift in Sources */,
+				294F48FD807BFD9FCD5F7117 /* SidecarManager.swift in Sources */,
+				88DE4C211241B2B163EF7425 /* StorageStateConverter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		201D706066835ED56AA581E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		3CEAB8D68EE30756B5DC8F12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/AutoMeetsSlide/AutoMeetsSlide.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = G5G54TCH8W;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/AutoMeetsSlide/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sh.saqoo.AutoMeetsSlide;
+				PRODUCT_NAME = AutoMeetsSlide;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D85B8C061BCB98E1E2CBBF94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/AutoMeetsSlide/AutoMeetsSlide.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = G5G54TCH8W;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/AutoMeetsSlide/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sh.saqoo.AutoMeetsSlide;
+				PRODUCT_NAME = AutoMeetsSlide;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		ED1AE91F3015D5275A51136A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6073709C3EF0832D86E60A81 /* Build configuration list for PBXNativeTarget "AutoMeetsSlide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3CEAB8D68EE30756B5DC8F12 /* Debug */,
+				D85B8C061BCB98E1E2CBBF94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B112BE2B79AECED706FD544A /* Build configuration list for PBXProject "AutoMeetsSlide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				201D706066835ED56AA581E6 /* Debug */,
+				ED1AE91F3015D5275A51136A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 91F8F5818F7E471DE8CF9906 /* Project object */;
+}

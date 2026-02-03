@@ -24,3 +24,5 @@ Thumbs.db
 
 # Logs
 *.log
+macos-app/Sources/AutoMeetsSlide/Resources/Binaries/notebooklm-cli
+.serena/

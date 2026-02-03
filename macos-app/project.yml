@@ -1,0 +1,61 @@
+name: AutoMeetsSlide
+options:
+  bundleIdPrefix: sh.saqoo
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+
+targets:
+  AutoMeetsSlide:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/AutoMeetsSlide
+        excludes:
+          - "**/.DS_Store"
+          - "**/Resources/Binaries/**"
+    resources:
+      - path: Sources/AutoMeetsSlide/Resources
+        excludes:
+          - "**/.DS_Store"
+          - "**/Binaries/**"
+    copyFiles:
+      - destination: executables
+        subpath: ""
+        files:
+          - path: Sources/AutoMeetsSlide/Resources/Binaries/notebooklm-cli
+            codeSign: false
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: sh.saqoo.AutoMeetsSlide
+      PRODUCT_NAME: "AutoMeetsSlide"
+      INFOPLIST_FILE: Sources/AutoMeetsSlide/Info.plist
+      GENERATE_INFOPLIST_FILE: false
+      CODE_SIGN_STYLE: Automatic
+      DEVELOPMENT_TEAM: G5G54TCH8W
+      ENABLE_HARDENED_RUNTIME: YES
+      CODE_SIGN_ENTITLEMENTS: Sources/AutoMeetsSlide/AutoMeetsSlide.entitlements
+      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
+    info:
+      path: Sources/AutoMeetsSlide/Info.plist
+      properties:
+        CFBundleName: "AutoMeetsSlide"
+        CFBundleDisplayName: "AutoMeetsSlide"
+        CFBundleIdentifier: sh.saqoo.AutoMeetsSlide
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundlePackageType: APPL
+        CFBundleIconName: AppIcon
+        CFBundleExecutable: "AutoMeetsSlide"
+        LSMinimumSystemVersion: "14.0"
+        NSHighResolutionCapable: true
+        LSApplicationCategoryType: public.app-category.productivity
+        NSHumanReadableCopyright: "© 2026 Saqoosha. All rights reserved."

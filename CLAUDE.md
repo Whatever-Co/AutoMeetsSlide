@@ -31,8 +31,10 @@ AutoMeetsSlide/
 │   │       └── Binaries/
 │   │           └── notebooklm-cli     # Python sidecar binary
 │   └── scripts/
-│       ├── release-build.sh          # Release build script
-│       └── notarize.sh               # App notarization
+│       ├── build.sh                  # Build script (Debug/Release)
+│       ├── notarize.sh               # Code signing & notarization
+│       ├── package_dmg.sh            # DMG packaging (build + notarize + DMG)
+│       └── release.sh                # Full release workflow
 │
 ├── python-sidecar/               # Python CLI for NotebookLM API
 │   ├── notebooklm_sidecar.py     # Main CLI (login, check-auth, process)
@@ -102,16 +104,23 @@ source .venv/bin/activate
 pip install -r requirements.txt
 pip install pyinstaller
 
-pyinstaller --onefile --name notebooklm-cli notebooklm_sidecar.py
+pyinstaller notebooklm-cli.spec
 cp dist/notebooklm-cli ../macos-app/Sources/AutoMeetsSlide/Resources/Binaries/
 ```
 
 ### Release Build
 ```bash
 cd macos-app
-./scripts/release-build.sh
-./scripts/notarize.sh   # Requires Apple Developer credentials
+./scripts/package_dmg.sh   # Build, notarize, and create DMG
 ```
+
+### Release a New Version
+```bash
+cd macos-app
+./scripts/release.sh <version>   # e.g., ./scripts/release.sh 1.0.0
+```
+
+This will bump version, build DMG, commit, tag, and create GitHub Release.
 
 ## Key Files
 

@@ -9,4 +9,5 @@ enum Log {
     static let sidecar = Logger(subsystem: subsystem, category: "sidecar")
     static let ui = Logger(subsystem: subsystem, category: "ui")
     static let general = Logger(subsystem: subsystem, category: "general")
+    static let watcher = Logger(subsystem: subsystem, category: "watcher")
 }

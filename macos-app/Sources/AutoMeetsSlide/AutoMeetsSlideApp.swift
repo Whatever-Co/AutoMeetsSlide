@@ -5,6 +5,7 @@ struct AutoMeetsSlideApp: App {
     init() {
         Task {
             await NotificationManager.shared.requestPermission()
+            FolderWatcherService.shared.startWatching()
         }
     }
 

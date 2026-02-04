@@ -17,6 +17,7 @@
 		839BB4C264DF156CA353B500 /* AutoMeetsSlideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185A72E7A243CDC317BE5141 /* AutoMeetsSlideApp.swift */; };
 		88DE4C211241B2B163EF7425 /* StorageStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */; };
 		928B98EDA9CBC2AABC7A6FB8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F2F52AD3E0649E6E8F7F6A /* FileItem.swift */; };
+		9628B6874C82424B068D8E57 /* FolderWatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8BD93AF6B70A4724E0875 /* FolderWatcherService.swift */; };
 		9E7A0030E797D7F70874308E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083494EC544E82A9CE706B33 /* Logger.swift */; };
 		F94AFD0B97F448D1DAFD7024 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0E9A48EE9AAB5E1BF43C9E /* NotificationManager.swift */; };
 		F9753883C4D272A280497C49 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8F6B6FEB48C0152E9D4E0 /* LoginView.swift */; };
@@ -30,6 +31,7 @@
 		2460B6E18673354E9B6469FA /* GoogleLoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginWebView.swift; sourceTree = "<group>"; };
 		2E2E3222883B927ED9FB3A3D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3EE8F6B6FEB48C0152E9D4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		46A8BD93AF6B70A4724E0875 /* FolderWatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWatcherService.swift; sourceTree = "<group>"; };
 		4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageStateConverter.swift; sourceTree = "<group>"; };
 		70F2F52AD3E0649E6E8F7F6A /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
 		73A7F62AABF4B316E367864C /* AutoMeetsSlide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoMeetsSlide.entitlements; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				F3207FD96B90EDC37C396AAB /* AuthService.swift */,
+				46A8BD93AF6B70A4724E0875 /* FolderWatcherService.swift */,
 				FC0E9A48EE9AAB5E1BF43C9E /* NotificationManager.swift */,
 				7FE57EAA20E9EB6B5ACAC59E /* SidecarManager.swift */,
 				4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */,
@@ -213,6 +216,7 @@
 				839BB4C264DF156CA353B500 /* AutoMeetsSlideApp.swift in Sources */,
 				71EE8E744970F60CC7A41532 /* ContentView.swift in Sources */,
 				928B98EDA9CBC2AABC7A6FB8 /* FileItem.swift in Sources */,
+				9628B6874C82424B068D8E57 /* FolderWatcherService.swift in Sources */,
 				62E757AAB4D9D8C1606A8F89 /* GoogleLoginWebView.swift in Sources */,
 				9E7A0030E797D7F70874308E /* Logger.swift in Sources */,
 				F9753883C4D272A280497C49 /* LoginView.swift in Sources */,

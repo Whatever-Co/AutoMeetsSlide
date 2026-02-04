@@ -77,6 +77,12 @@ class AppState {
         files.append(contentsOf: newItems)
     }
 
+    func addFilesIfNotExists(_ urls: [URL]) {
+        let existingPaths = Set(files.map { $0.path })
+        let newUrls = urls.filter { !existingPaths.contains($0.path) }
+        addFiles(newUrls)
+    }
+
     func removeFile(_ id: UUID) {
         files.removeAll { $0.id == id }
     }

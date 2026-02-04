@@ -34,6 +34,8 @@ targets:
           - path: Sources/AutoMeetsSlide/Resources/Binaries/notebooklm-cli
             codeSign: false
     settings:
+      APP_INTENTS_METADATA_EXTRACTION_ENABLED: NO
+      OTHER_SWIFT_FLAGS: "$(inherited) -Xfrontend -disable-autolink-framework -Xfrontend AppIntents"
       PRODUCT_BUNDLE_IDENTIFIER: sh.saqoo.AutoMeetsSlide
       PRODUCT_NAME: "AutoMeetsSlide"
       INFOPLIST_FILE: Sources/AutoMeetsSlide/Info.plist

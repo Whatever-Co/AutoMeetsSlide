@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Commands that can be sent to the Python sidecar
 enum SidecarCommand {
@@ -47,6 +48,9 @@ class SidecarManager {
         isRunning = true
         defer { isRunning = false }
 
+        // Thread-safe state for concurrent access from readabilityHandler
+        let state = OSAllocatedUnfairLock(initialState: (outputBuffer: "", lastResponse: SidecarResponse?.none))
+
         return try await withCheckedThrowingContinuation { continuation in
             let process = Process()
             let stdout = Pipe()
@@ -58,36 +62,42 @@ class SidecarManager {
             process.standardError = stderr
             process.environment = ProcessInfo.processInfo.environment
 
-            var lastResponse: SidecarResponse?
-            var outputBuffer = ""
-
             // Handle stdout line by line for progress updates
             stdout.fileHandleForReading.readabilityHandler = { [weak self] handle in
                 let data = handle.availableData
                 guard !data.isEmpty else { return }
 
-                outputBuffer += String(data: data, encoding: .utf8) ?? ""
+                let response = state.withLock { state -> SidecarResponse? in
+                    state.outputBuffer += String(data: data, encoding: .utf8) ?? ""
 
-                // Process complete lines
-                while let newlineRange = outputBuffer.range(of: "\n") {
-                    let line = String(outputBuffer[..<newlineRange.lowerBound])
-                    outputBuffer = String(outputBuffer[newlineRange.upperBound...])
+                    var latestResponse: SidecarResponse?
 
-                    guard !line.isEmpty else { continue }
+                    // Process complete lines
+                    while let newlineRange = state.outputBuffer.range(of: "\n") {
+                        let line = String(state.outputBuffer[..<newlineRange.lowerBound])
+                        state.outputBuffer = String(state.outputBuffer[newlineRange.upperBound...])
 
-                    if let jsonData = line.data(using: .utf8),
-                       let response = try? JSONDecoder().decode(SidecarResponse.self, from: jsonData) {
-                        lastResponse = response
+                        guard !line.isEmpty else { continue }
 
-                        Task { @MainActor in
-                            if let message = response.message {
-                                self?.currentStatus = message
-                            }
-                            if let error = response.error {
-                                self?.currentStatus = "Error: \(error)"
-                            }
-                            onProgress?(response)
+                        if let jsonData = line.data(using: .utf8),
+                           let parsed = try? JSONDecoder().decode(SidecarResponse.self, from: jsonData) {
+                            state.lastResponse = parsed
+                            latestResponse = parsed
                         }
+                    }
+
+                    return latestResponse
+                }
+
+                if let response {
+                    Task { @MainActor in
+                        if let message = response.message {
+                            self?.currentStatus = message
+                        }
+                        if let error = response.error {
+                            self?.currentStatus = "Error: \(error)"
+                        }
+                        onProgress?(response)
                     }
                 }
             }
@@ -95,7 +105,8 @@ class SidecarManager {
             process.terminationHandler = { _ in
                 stdout.fileHandleForReading.readabilityHandler = nil
                 stderr.fileHandleForReading.readabilityHandler = nil
-                continuation.resume(returning: lastResponse)
+                let finalResponse = state.withLock { $0.lastResponse }
+                continuation.resume(returning: finalResponse)
             }
 
             do {

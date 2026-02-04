@@ -70,7 +70,24 @@ AutoMeetsSlide/
 - Python 3.10+
 - XcodeGen (`brew install xcodegen`)
 
-### Build macOS App
+### Build via Claude Code (Recommended)
+
+XcodeBuildMCP is configured for this project. Use natural language:
+
+| Instruction | Action |
+|-------------|--------|
+| "build it" / "ビルドして" | `build_macos` |
+| "run the app" / "起動して" | `build_macos` → `launch_mac_app` |
+| "stop the app" / "止めて" | `stop_mac_app` |
+| "rebuild and run" | `stop_mac_app` → `build_macos` → `launch_mac_app` |
+| "test it" | `test_macos` |
+| "clean build" | `clean` → `build_macos` |
+
+Session defaults are configured in `.xcodebuildmcp/config.yaml`.
+
+**Note**: `stop_mac_app` requires explicit `appName: "AutoMeetsSlide"` parameter (not auto-filled from defaults).
+
+### Build macOS App (Manual)
 ```bash
 cd macos-app
 xcodegen generate       # Regenerate project after adding files

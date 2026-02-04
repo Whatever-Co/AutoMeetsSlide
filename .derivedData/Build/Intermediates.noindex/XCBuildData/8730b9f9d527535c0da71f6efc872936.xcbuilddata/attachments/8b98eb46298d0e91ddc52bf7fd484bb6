@@ -1,0 +1,14 @@
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/ViewModels/AppState.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/AuthService.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/AutoMeetsSlideApp.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Views/ContentView.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Models/FileItem.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/FolderWatcherService.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Components/GoogleLoginWebView.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Utilities/Logger.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Views/LoginView.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Views/MainView.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/NotificationManager.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/SidecarManager.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/StorageStateConverter.swift
+/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/DerivedSources/GeneratedAssetSymbols.swift

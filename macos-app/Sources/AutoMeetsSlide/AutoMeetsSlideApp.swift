@@ -1,13 +1,21 @@
 import SwiftUI
 
-@main
-struct AutoMeetsSlideApp: App {
-    init() {
+class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        // Set up notification delegate early
+        NotificationManager.shared.setup()
+
         Task {
             await NotificationManager.shared.requestPermission()
-            FolderWatcherService.shared.startWatching()
         }
+
+        FolderWatcherService.shared.startWatching()
     }
+}
+
+@main
+struct AutoMeetsSlideApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {

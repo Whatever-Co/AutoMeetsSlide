@@ -1,0 +1,149 @@
+{
+  "" : {
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlide-primary.dia",
+    "emit-module-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlide-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlide-primary-emit-module.dia",
+    "pch" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlide-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlide-primary.swiftdeps"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/AutoMeetsSlideApp.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AutoMeetsSlideApp~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Components/GoogleLoginWebView.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/GoogleLoginWebView~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Models/FileItem.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FileItem~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/AuthService.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AuthService~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/FolderWatcherService.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/FolderWatcherService~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/NotificationManager.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/NotificationManager~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/SidecarManager.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/SidecarManager~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Services/StorageStateConverter.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/StorageStateConverter~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Utilities/Logger.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/Logger~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/ViewModels/AppState.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/AppState~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Views/ContentView.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Views/LoginView.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/LoginView~partial.swiftmodule"
+  },
+  "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/Sources/AutoMeetsSlide/Views/MainView.swift" : {
+    "const-values" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView.swiftconstvalues",
+    "dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView.d",
+    "diagnostics" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView.dia",
+    "index-unit-output-path" : "/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView.o",
+    "llvm-bc" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView.bc",
+    "object" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView.o",
+    "swift-dependencies" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView.swiftdeps",
+    "swiftmodule" : "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/.derivedData/Build/Intermediates.noindex/AutoMeetsSlide.build/Debug/AutoMeetsSlide.build/Objects-normal/arm64/MainView~partial.swiftmodule"
+  }
+}

@@ -18,6 +18,7 @@
 		88DE4C211241B2B163EF7425 /* StorageStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */; };
 		928B98EDA9CBC2AABC7A6FB8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F2F52AD3E0649E6E8F7F6A /* FileItem.swift */; };
 		9E7A0030E797D7F70874308E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083494EC544E82A9CE706B33 /* Logger.swift */; };
+		F94AFD0B97F448D1DAFD7024 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0E9A48EE9AAB5E1BF43C9E /* NotificationManager.swift */; };
 		F9753883C4D272A280497C49 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8F6B6FEB48C0152E9D4E0 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		A7905C2F4F70E1C3B385F5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EE0BC722B688061102458E38 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F3207FD96B90EDC37C396AAB /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		FC0E9A48EE9AAB5E1BF43C9E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -44,6 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				F3207FD96B90EDC37C396AAB /* AuthService.swift */,
+				FC0E9A48EE9AAB5E1BF43C9E /* NotificationManager.swift */,
 				7FE57EAA20E9EB6B5ACAC59E /* SidecarManager.swift */,
 				4E9CEC8B7EBE641FC04E1862 /* StorageStateConverter.swift */,
 			);
@@ -214,6 +217,7 @@
 				9E7A0030E797D7F70874308E /* Logger.swift in Sources */,
 				F9753883C4D272A280497C49 /* LoginView.swift in Sources */,
 				1975D6E3E9E3CAF60879AAEB /* MainView.swift in Sources */,
+				F94AFD0B97F448D1DAFD7024 /* NotificationManager.swift in Sources */,
 				294F48FD807BFD9FCD5F7117 /* SidecarManager.swift in Sources */,
 				88DE4C211241B2B163EF7425 /* StorageStateConverter.swift in Sources */,
 			);

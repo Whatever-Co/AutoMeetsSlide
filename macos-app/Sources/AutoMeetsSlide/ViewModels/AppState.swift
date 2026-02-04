@@ -115,13 +115,17 @@ class AppState {
 
             if let outputPath = response?.outputPath {
                 updateFileStatus(nextFile.id, status: .completed, outputPath: outputPath)
+                NotificationManager.shared.notifyCompletion(fileName: nextFile.name, outputPath: outputPath)
             } else if let error = response?.error {
                 updateFileStatus(nextFile.id, status: .error, error: error)
+                NotificationManager.shared.notifyError(fileName: nextFile.name, error: error)
             } else {
                 updateFileStatus(nextFile.id, status: .error, error: "Unknown error")
+                NotificationManager.shared.notifyError(fileName: nextFile.name, error: "Unknown error")
             }
         } catch {
             updateFileStatus(nextFile.id, status: .error, error: error.localizedDescription)
+            NotificationManager.shared.notifyError(fileName: nextFile.name, error: error.localizedDescription)
         }
 
         currentProcessingId = nil

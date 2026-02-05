@@ -43,11 +43,14 @@ This builds, notarizes, creates DMG, commits, tags, and creates GitHub Release.
 
 ### 4. Generate release notes from diff
 
-Analyze the actual code changes and write user-friendly release notes:
+Analyze the actual code changes and write user-friendly release notes.
+
+**Format rules:**
+- Do NOT include version header (e.g., "## AutoMeetsSlide X.Y.Z") - GitHub already shows it
+- Do NOT include Requirements section - already in README
+- Do NOT include Download section - GitHub shows assets automatically
 
 ```markdown
-## AutoMeetsSlide X.Y.Z
-
 Brief description of this release.
 
 ### Features (if new features added)

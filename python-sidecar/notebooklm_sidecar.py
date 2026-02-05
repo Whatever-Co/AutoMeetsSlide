@@ -123,8 +123,17 @@ async def cmd_check_auth():
         emit("error", f"Authentication check failed: {type(e).__name__}: {e}", authenticated=False)
 
 
-async def cmd_process(file_path: str, output_dir: str):
-    """Full flow: create notebook, upload source, generate slides, download PDF."""
+DEFAULT_SYSTEM_PROMPT = "この内容から包括的なスライドデッキを日本語で作成してください。"
+
+
+async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None = None):
+    """Full flow: create notebook, upload source, generate slides, download PDF.
+
+    Args:
+        file_path: Path to input file
+        output_dir: Output directory for PDF
+        system_prompt: Custom instructions for slide generation (optional)
+    """
     from notebooklm.client import NotebookLMClient
 
     file_path = Path(file_path)
@@ -161,9 +170,10 @@ async def cmd_process(file_path: str, output_dir: str):
 
             # Generate slides
             emit("progress", "Generating slide deck...")
+            instructions = system_prompt or DEFAULT_SYSTEM_PROMPT
             status = await client.artifacts.generate_slide_deck(
                 notebook_id,
-                instructions="この内容から包括的なスライドデッキを日本語で作成してください。"
+                instructions=instructions
             )
             emit("progress", f"Generation started, task_id: {status.task_id}")
 
@@ -214,11 +224,19 @@ def main():
 
     elif command == "process":
         if len(sys.argv) < 4:
-            emit_error("Usage: process <file_path> <output_dir>")
+            emit_error("Usage: process <file_path> <output_dir> [--system-prompt <prompt>]")
             return
         file_path = sys.argv[2]
         output_dir = sys.argv[3]
-        asyncio.run(cmd_process(file_path, output_dir))
+
+        # Parse --system-prompt flag
+        system_prompt = None
+        if "--system-prompt" in sys.argv:
+            idx = sys.argv.index("--system-prompt")
+            if idx + 1 < len(sys.argv):
+                system_prompt = sys.argv[idx + 1]
+
+        asyncio.run(cmd_process(file_path, output_dir, system_prompt))
 
     else:
         emit_error(f"Unknown command: {command}")

@@ -23,5 +23,18 @@ struct AutoMeetsSlideApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .defaultSize(width: 500, height: 600)
+        .commands {
+            CommandGroup(after: .appSettings) {
+                Button("Logout") {
+                    AppState.shared.logout()
+                }
+                .keyboardShortcut("L", modifiers: [.command, .shift])
+                .disabled(AppState.shared.isAuthenticated != true)
+            }
+        }
+
+        Settings {
+            SettingsView()
+        }
     }
 }

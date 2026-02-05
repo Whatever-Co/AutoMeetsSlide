@@ -50,27 +50,6 @@ struct MainView: View {
             Button(action: selectFiles) {
                 Label("Add Files", systemImage: "plus")
             }
-
-            Menu {
-                if let path = FolderWatcherService.shared.watchedFolderPath {
-                    Label("Watching: \(URL(fileURLWithPath: path).lastPathComponent)", systemImage: "folder.badge.gearshape")
-                    Button("Stop Watching") {
-                        FolderWatcherService.shared.clearWatchedFolder()
-                    }
-                } else {
-                    Button("Watch Folder...") {
-                        Task {
-                            await FolderWatcherService.shared.selectFolder()
-                        }
-                    }
-                }
-                Divider()
-                Button("Logout", action: appState.logout)
-            } label: {
-                Image(systemName: "ellipsis.circle")
-            }
-            .menuStyle(.borderlessButton)
-            .frame(width: 30)
         }
         .padding(.horizontal)
         .padding(.vertical, 10)

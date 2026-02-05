@@ -22,11 +22,30 @@ class AppState {
     // Services
     let sidecarManager = SidecarManager()
 
-    // Settings
-    var systemPrompt: String = "Create a comprehensive slide deck from this content in Japanese."
-    var downloadFolder: String = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first?.path ?? ""
+    // Settings (persisted to UserDefaults)
+    static let defaultSystemPrompt = "この内容から包括的なスライドデッキを日本語で作成してください。"
 
-    private init() {}
+    var systemPrompt: String = AppState.defaultSystemPrompt {
+        didSet {
+            UserDefaults.standard.set(systemPrompt, forKey: "systemPrompt")
+        }
+    }
+
+    var downloadFolder: String = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first?.path ?? "" {
+        didSet {
+            UserDefaults.standard.set(downloadFolder, forKey: "downloadFolder")
+        }
+    }
+
+    private init() {
+        // Load persisted settings
+        if let savedPrompt = UserDefaults.standard.string(forKey: "systemPrompt") {
+            systemPrompt = savedPrompt
+        }
+        if let savedFolder = UserDefaults.standard.string(forKey: "downloadFolder") {
+            downloadFolder = savedFolder
+        }
+    }
 
     // MARK: - Authentication
 

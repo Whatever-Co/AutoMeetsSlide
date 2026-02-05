@@ -1,6 +1,71 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+/// Drop delegate that only accepts supported file types
+struct FileDropDelegate: DropDelegate {
+    @Binding var isDragOver: Bool
+    let onDrop: ([URL]) -> Void
+
+    private func hasSupportedFiles(info: DropInfo) -> Bool {
+        guard info.hasItemsConforming(to: [.fileURL]) else { return false }
+
+        let providers = info.itemProviders(for: [.fileURL])
+        for provider in providers {
+            // Check suggestedName for file extension
+            if let name = provider.suggestedName {
+                let ext = (name as NSString).pathExtension.lowercased()
+                if SupportedFileType.all.contains(ext) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    func validateDrop(info: DropInfo) -> Bool {
+        hasSupportedFiles(info: info)
+    }
+
+    func dropEntered(info: DropInfo) {
+        isDragOver = hasSupportedFiles(info: info)
+    }
+
+    func dropExited(info: DropInfo) {
+        isDragOver = false
+    }
+
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        hasSupportedFiles(info: info) ? DropProposal(operation: .copy) : DropProposal(operation: .cancel)
+    }
+
+    func performDrop(info: DropInfo) -> Bool {
+        isDragOver = false
+
+        let providers = info.itemProviders(for: [.fileURL])
+        var urls: [URL] = []
+
+        let group = DispatchGroup()
+        for provider in providers {
+            group.enter()
+            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { data, _ in
+                defer { group.leave() }
+                guard let data = data as? Data,
+                      let url = URL(dataRepresentation: data, relativeTo: nil),
+                      SupportedFileType.isSupported(url) else { return }
+                urls.append(url)
+            }
+        }
+
+        group.notify(queue: .main) {
+            if !urls.isEmpty {
+                onDrop(urls)
+            }
+        }
+
+        return true
+    }
+}
+
 /// Main app view after authentication
 struct MainView: View {
     private var appState: AppState { AppState.shared }
@@ -8,11 +73,6 @@ struct MainView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
-            headerView
-
-            Divider()
-
             // Content
             if appState.files.isEmpty {
                 emptyStateView
@@ -25,9 +85,9 @@ struct MainView: View {
                 statusBar
             }
         }
-        .onDrop(of: [.fileURL], isTargeted: $isDragOver) { providers in
-            handleDrop(providers)
-        }
+        .onDrop(of: [.fileURL], delegate: FileDropDelegate(isDragOver: $isDragOver) { urls in
+            appState.addFiles(urls)
+        })
         .overlay {
             if isDragOver {
                 dropOverlay
@@ -36,24 +96,6 @@ struct MainView: View {
         .task {
             await processLoop()
         }
-    }
-
-    // MARK: - Header
-
-    private var headerView: some View {
-        HStack {
-            Text("AutoMeetsSlide")
-                .font(.headline)
-
-            Spacer()
-
-            Button(action: selectFiles) {
-                Label("Add Files", systemImage: "plus")
-            }
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 10)
-        .background(.bar)
     }
 
     // MARK: - Empty State
@@ -71,12 +113,12 @@ struct MainView: View {
                 .font(.caption)
                 .foregroundStyle(.tertiary)
 
-            Button("Select Files", action: selectFiles)
+            Button("Select Files", action: appState.selectFiles)
                 .buttonStyle(.borderedProminent)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
-        .onTapGesture(perform: selectFiles)
+        .onTapGesture(perform: appState.selectFiles)
     }
 
     // MARK: - File List
@@ -121,36 +163,6 @@ struct MainView: View {
     }
 
     // MARK: - Actions
-
-    private func selectFiles() {
-        let panel = NSOpenPanel()
-        panel.allowsMultipleSelection = true
-        panel.canChooseDirectories = false
-        panel.allowedContentTypes = [
-            .mp3, .wav, .mpeg4Audio,
-            .pdf, .plainText,
-            UTType(filenameExtension: "docx")!
-        ]
-
-        if panel.runModal() == .OK {
-            appState.addFiles(panel.urls)
-        }
-    }
-
-    private func handleDrop(_ providers: [NSItemProvider]) -> Bool {
-        for provider in providers {
-            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { data, _ in
-                guard let data = data as? Data,
-                      let url = URL(dataRepresentation: data, relativeTo: nil)
-                else { return }
-
-                Task { @MainActor in
-                    appState.addFiles([url])
-                }
-            }
-        }
-        return true
-    }
 
     private func processLoop() async {
         while true {

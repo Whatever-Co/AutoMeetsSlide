@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Main application state
 @MainActor
@@ -87,6 +88,21 @@ class AppState {
     }
 
     // MARK: - File Queue
+
+    func selectFiles() {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = true
+        panel.canChooseDirectories = false
+        panel.allowedContentTypes = [
+            .mp3, .wav, .mpeg4Audio,
+            .pdf, .plainText,
+            UTType(filenameExtension: "docx")!
+        ]
+
+        if panel.runModal() == .OK {
+            addFiles(panel.urls)
+        }
+    }
 
     func addFiles(_ urls: [URL]) {
         let newItems = urls.compactMap { url -> FileItem? in

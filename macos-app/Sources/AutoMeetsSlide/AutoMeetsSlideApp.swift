@@ -24,6 +24,13 @@ struct AutoMeetsSlideApp: App {
         .windowStyle(.hiddenTitleBar)
         .defaultSize(width: 500, height: 600)
         .commands {
+            CommandGroup(replacing: .newItem) {
+                Button("Add Files...") {
+                    AppState.shared.selectFiles()
+                }
+                .keyboardShortcut("O", modifiers: .command)
+                .disabled(AppState.shared.isAuthenticated != true)
+            }
             CommandGroup(after: .appSettings) {
                 Button("Logout") {
                     AppState.shared.logout()

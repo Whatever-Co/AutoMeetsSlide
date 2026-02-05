@@ -1,6 +1,10 @@
 # AutoMeetsSlide
 
-A macOS app that automatically converts documents to slide decks using Google NotebookLM.
+<p align="center">
+  <img src="macos-app/images/appicon.png" width="128" height="128" alt="AutoMeetsSlide icon">
+  <br>
+  A macOS app that automatically converts documents to slide decks using Google NotebookLM.
+</p>
 
 ## Features
 

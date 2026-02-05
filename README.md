@@ -84,7 +84,8 @@ AutoMeetsSlide/
 ├── macos-app/              # Native macOS SwiftUI app
 │   ├── project.yml         # XcodeGen project definition
 │   ├── Sources/
-│   └── scripts/            # Build & release scripts
+│   ├── images/             # Source images (app icon base)
+│   └── scripts/            # Build, release & icon scripts
 │
 └── python-sidecar/         # Python CLI for NotebookLM API
     ├── notebooklm_sidecar.py

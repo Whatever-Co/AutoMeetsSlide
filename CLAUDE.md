@@ -27,11 +27,15 @@ AutoMeetsSlide/
 │   │   │   └── NotificationManager.swift  # macOS notifications
 │   │   ├── Utilities/
 │   │   │   └── Logger.swift           # os.log wrapper
+│   │   ├── Assets.xcassets/           # App icon and assets
 │   │   └── Resources/
 │   │       └── Binaries/
 │   │           └── notebooklm-cli     # Python sidecar binary
+│   ├── images/
+│   │   └── appiconbase.png           # Source image for app icon
 │   └── scripts/
 │       ├── build.sh                  # Build script (Debug/Release)
+│       ├── generate_icon.py          # Generate app icon with squircle mask
 │       ├── notarize.sh               # Code signing & notarization
 │       ├── package_dmg.sh            # DMG packaging (build + notarize + DMG)
 │       └── release.sh                # Full release workflow
@@ -130,6 +134,7 @@ This will bump version, build DMG, commit, tag, and create GitHub Release.
 | `SidecarManager.swift` | Python binary communication |
 | `notebooklm_sidecar.py` | NotebookLM API wrapper |
 | `project.yml` | XcodeGen project definition |
+| `generate_icon.py` | App icon generator with squircle mask |
 
 ## Notes
 

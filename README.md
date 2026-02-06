@@ -10,8 +10,10 @@
 
 - **Drag & Drop** - Drop files directly onto the window to process
 - **Watch Folder** - Automatically process new files in a designated folder
-- **Multiple Formats** - Supports PDF, audio (mp3, wav, m4a), and video (mp4, mov, webm)
-- **Native Notifications** - macOS notifications on completion or failure
+- **Multiple Formats** - Supports PDF, text (txt, md, docx), and audio (mp3, wav, m4a)
+- **Custom System Prompt** - Configure instructions for slide generation
+- **Settings** - Customizable system prompt, download folder, and watch folder (via Preferences)
+- **Native Notifications** - macOS notifications on completion (click to open PDF)
 - **Silent Authentication** - Uses Safari cookies for seamless Google login
 
 ## Installation
@@ -24,8 +26,9 @@
 
 ### Processing Files
 
-1. Drag & drop files onto the app window, or
-2. Set up a watch folder for automatic processing
+1. Drag & drop files onto the app window
+2. Use **Add Files** (Cmd+O) from the menu bar
+3. Set up a watch folder for automatic processing (via Settings)
 
 ### Requirements
 
@@ -72,7 +75,7 @@ cd ../macos-app
 ./scripts/build.sh          # Debug build
 ./scripts/build.sh Release  # Release build
 ./scripts/package_dmg.sh    # Package DMG (includes notarization)
-./scripts/release.sh 1.0.0  # Release new version
+./scripts/release.sh 1.1.0  # Release new version
 ```
 
 ### Tech Stack
@@ -87,13 +90,15 @@ cd ../macos-app
 AutoMeetsSlide/
 ├── macos-app/              # Native macOS SwiftUI app
 │   ├── project.yml         # XcodeGen project definition
-│   ├── Sources/
+│   ├── Sources/            # Swift source files
 │   ├── images/             # Source images (app icon base)
 │   └── scripts/            # Build, release & icon scripts
 │
-└── python-sidecar/         # Python CLI for NotebookLM API
-    ├── notebooklm_sidecar.py
-    └── notebooklm-cli.spec
+├── python-sidecar/         # Python CLI for NotebookLM API
+│   ├── notebooklm_sidecar.py
+│   └── notebooklm-cli.spec
+│
+└── tauri-app/              # OBSOLETE - will be deleted
 ```
 
 ## License

@@ -17,14 +17,16 @@ AutoMeetsSlide/
 │   │   ├── Views/
 │   │   │   ├── ContentView.swift      # Root view (auth routing)
 │   │   │   ├── MainView.swift         # Main UI (file drop, queue)
-│   │   │   └── LoginView.swift        # Login UI
+│   │   │   ├── LoginView.swift        # Login UI
+│   │   │   └── SettingsView.swift     # Settings (system prompt, download folder, watch folder)
 │   │   ├── Components/
 │   │   │   └── GoogleLoginWebView.swift  # WKWebView for Google auth
 │   │   ├── Services/
 │   │   │   ├── SidecarManager.swift   # Python sidecar communication
 │   │   │   ├── AuthService.swift      # Authentication (Safari cookies)
 │   │   │   ├── StorageStateConverter.swift
-│   │   │   └── NotificationManager.swift  # macOS notifications
+│   │   │   ├── FolderWatcherService.swift # Auto-import from watched folder
+│   │   │   └── NotificationManager.swift  # macOS notifications (click to open PDF)
 │   │   ├── Utilities/
 │   │   │   └── Logger.swift           # os.log wrapper
 │   │   ├── Assets.xcassets/           # App icon and assets
@@ -54,11 +56,12 @@ AutoMeetsSlide/
 - **AppState**: Central state management using `@Observable`
 - **SidecarManager**: Spawns and communicates with Python binary via JSON stdout
 - **AuthService**: Extracts Safari cookies for silent authentication
-- **NotificationManager**: macOS native notifications for completion/failure
+- **NotificationManager**: macOS native notifications for completion/failure (click to open PDF)
+- **FolderWatcherService**: Watches a folder for new files and auto-queues them
 
 ### Python Sidecar
 - Compiled binary using PyInstaller
-- Commands: `login`, `check-auth`, `process`
+- Commands: `login`, `check-auth`, `process` (supports `--system-prompt` flag)
 - Communicates via JSON on stdout
 - Uses `notebooklm-py` library for NotebookLM API
 
@@ -132,6 +135,9 @@ This will bump version, build DMG, commit, tag, and create GitHub Release.
 |------|---------|
 | `AppState.swift` | Main state, file queue, processing logic |
 | `SidecarManager.swift` | Python binary communication |
+| `SettingsView.swift` | Settings UI (system prompt, download folder, watch folder) |
+| `NotificationManager.swift` | Notifications with click-to-open PDF |
+| `FolderWatcherService.swift` | Auto-import from watched folder |
 | `notebooklm_sidecar.py` | NotebookLM API wrapper |
 | `project.yml` | XcodeGen project definition |
 | `generate_icon.py` | App icon generator with squircle mask |
@@ -140,4 +146,4 @@ This will bump version, build DMG, commit, tag, and create GitHub Release.
 
 - Bundle ID: `sh.saqoo.AutoMeetsSlide`
 - Uses `jj` for version control (not git directly)
-- Supported file types: PDF, audio (mp3, wav, m4a), video (mp4, mov, webm)
+- Supported file types: PDF, text (txt, md, docx), audio (mp3, wav, m4a)

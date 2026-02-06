@@ -215,6 +215,17 @@ struct FileRowView: View {
             Spacer()
 
             // Actions
+            if let notebookId = file.notebookId,
+               let url = URL(string: "https://notebooklm.google.com/notebook/\(notebookId)") {
+                Button {
+                    NSWorkspace.shared.open(url)
+                } label: {
+                    Image(systemName: "book")
+                }
+                .buttonStyle(.borderless)
+                .help("Open in NotebookLM")
+            }
+
             if file.status == .processing || file.status == .restoring {
                 ProgressView()
                     .scaleEffect(0.7)
@@ -225,6 +236,7 @@ struct FileRowView: View {
                     Image(systemName: "folder")
                 }
                 .buttonStyle(.borderless)
+                .help("Show in Finder")
             }
 
             if file.status != .processing && file.status != .restoring {

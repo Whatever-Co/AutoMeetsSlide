@@ -202,7 +202,7 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
                 str(output_file)
             )
 
-            emit("done", f"PDF downloaded: {downloaded_path}", output_path=str(downloaded_path))
+            emit("done", f"PDF downloaded: {downloaded_path}", output_path=str(downloaded_path), notebook_id=notebook_id)
 
     except FileNotFoundError as e:
         emit_error(f"Not authenticated. Run 'login' first. ({e})")

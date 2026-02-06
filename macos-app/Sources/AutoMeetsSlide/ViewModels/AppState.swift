@@ -133,11 +133,12 @@ class AppState {
         saveQueue()
     }
 
-    func updateFileStatus(_ id: UUID, status: ProcessingStatus, outputPath: String? = nil, error: String? = nil) {
+    func updateFileStatus(_ id: UUID, status: ProcessingStatus, outputPath: String? = nil, notebookId: String? = nil, error: String? = nil) {
         guard let index = files.firstIndex(where: { $0.id == id }) else { return }
         files[index].status = status
-        files[index].outputPath = outputPath
-        files[index].error = error
+        if let outputPath { files[index].outputPath = outputPath }
+        if let notebookId { files[index].notebookId = notebookId }
+        if let error { files[index].error = error }
         saveQueue()
     }
 
@@ -183,6 +184,7 @@ class AppState {
         updateFileStatus(nextFile.id, status: .processing)
 
         do {
+            var capturedNotebookId: String?
             let response = try await sidecarManager.run(
                 .process(
                     filePath: nextFile.path,
@@ -190,10 +192,16 @@ class AppState {
                     systemPrompt: systemPrompt,
                     jobId: nextFile.id.uuidString
                 )
-            )
+            ) { [self] progress in
+                if let nid = progress.notebookId {
+                    capturedNotebookId = nid
+                    updateFileStatus(nextFile.id, status: .processing, notebookId: nid)
+                }
+            }
 
+            let notebookId = response?.notebookId ?? capturedNotebookId
             if let outputPath = response?.outputPath {
-                updateFileStatus(nextFile.id, status: .completed, outputPath: outputPath)
+                updateFileStatus(nextFile.id, status: .completed, outputPath: outputPath, notebookId: notebookId)
                 NotificationManager.shared.notifyCompletion(fileName: nextFile.name, outputPath: outputPath)
             } else if let error = response?.error {
                 updateFileStatus(nextFile.id, status: .error, error: error)
@@ -239,6 +247,9 @@ class AppState {
                 let taskId = findResponse?.taskId
                 let genStatus = findResponse?.generationStatus
 
+                // Save notebookId immediately so the UI can show the link
+                updateFileStatus(item.id, status: .restoring, notebookId: notebookId)
+
                 Log.general.info("Found notebook \(notebookId) for \(item.name), status=\(genStatus ?? "unknown")")
 
                 if genStatus == "completed" {
@@ -270,7 +281,7 @@ class AppState {
             .download(notebookId: notebookId, outputDir: downloadFolder, fileNameStem: fileNameStem)
         )
         if let outputPath = downloadResponse?.outputPath {
-            updateFileStatus(item.id, status: .completed, outputPath: outputPath)
+            updateFileStatus(item.id, status: .completed, outputPath: outputPath, notebookId: notebookId)
             NotificationManager.shared.notifyCompletion(fileName: item.name, outputPath: outputPath)
         } else if let error = downloadResponse?.error {
             updateFileStatus(item.id, status: .error, error: error)

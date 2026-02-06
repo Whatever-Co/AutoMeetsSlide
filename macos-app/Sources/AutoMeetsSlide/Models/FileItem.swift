@@ -9,6 +9,7 @@ struct FileItem: Identifiable, Equatable, Codable {
     let size: Int64
     var status: ProcessingStatus
     var outputPath: String?
+    var notebookId: String?
     var error: String?
     let addedAt: Date
 
@@ -20,6 +21,7 @@ struct FileItem: Identifiable, Equatable, Codable {
         self.size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int64) ?? 0
         self.status = .pending
         self.outputPath = nil
+        self.notebookId = nil
         self.error = nil
         self.addedAt = Date()
     }

@@ -6,3 +6,7 @@ enabledWorkflows:
   - logging
   - project-discovery
   - utilities
+sessionDefaults:
+  projectPath: /Users/hiko/Documents/repos/Work/AutoMeetsSlide/macos-app/AutoMeetsSlide.xcodeproj
+  scheme: AutoMeetsSlide
+  configuration: Debug

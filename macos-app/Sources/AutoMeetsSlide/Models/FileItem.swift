@@ -45,7 +45,7 @@ enum ProcessingStatus: String, Equatable {
 /// Supported file extensions
 enum SupportedFileType {
     static let audio: Set<String> = ["mp3", "wav", "m4a"]
-    static let document: Set<String> = ["pdf", "txt", "docx"]
+    static let document: Set<String> = ["pdf", "txt", "md", "docx"]
     static let all: Set<String> = audio.union(document)
 
     static func isSupported(_ url: URL) -> Bool {

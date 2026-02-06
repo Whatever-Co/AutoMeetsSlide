@@ -109,7 +109,7 @@ struct MainView: View {
             Text("Drop files here or click to select")
                 .font(.headline)
 
-            Text("MP3, WAV, M4A, PDF, TXT, DOCX")
+            Text("MP3, WAV, M4A, PDF, TXT, MD, DOCX")
                 .font(.caption)
                 .foregroundStyle(.tertiary)
 

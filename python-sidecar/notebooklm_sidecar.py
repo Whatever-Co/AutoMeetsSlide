@@ -182,14 +182,13 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
             final_status = await client.artifacts.wait_for_completion(
                 notebook_id,
                 status.task_id,
-                timeout=600.0  # 10 minutes max
+                timeout=1800.0  # 30 minutes max
             )
 
             if final_status.is_failed:
-                emit_error(f"Slide generation failed: {final_status}")
-                return
-
-            emit("progress", "Slide generation complete!")
+                emit("progress", f"Generation status reports failed (status={final_status.status}), attempting download anyway...")
+            else:
+                emit("progress", "Slide generation complete!")
 
             # Download PDF
             output_file = output_dir / f"{file_path.stem}_slides.pdf"
@@ -205,7 +204,8 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
     except FileNotFoundError as e:
         emit_error(f"Not authenticated. Run 'login' first. ({e})")
     except Exception as e:
-        emit_error(f"Process failed: {e}")
+        import traceback
+        emit_error(f"Process failed: {type(e).__name__}: {e}\n{traceback.format_exc()}")
 
 
 def main():

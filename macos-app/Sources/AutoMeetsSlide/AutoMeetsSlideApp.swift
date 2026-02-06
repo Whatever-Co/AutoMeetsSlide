@@ -21,7 +21,8 @@ struct AutoMeetsSlideApp: App {
         WindowGroup {
             ContentView()
         }
-        .windowStyle(.hiddenTitleBar)
+        .windowStyle(.titleBar)
+        .windowToolbarStyle(.unified(showsTitle: true))
         .defaultSize(width: 500, height: 600)
         .commands {
             CommandGroup(replacing: .newItem) {

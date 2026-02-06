@@ -1,67 +1,65 @@
+import AppKit
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// Drop delegate that only accepts supported file types
-struct FileDropDelegate: DropDelegate {
+/// AppKit-based drop zone that reads file URLs directly from the dragging pasteboard
+struct FileDropZone: NSViewRepresentable {
     @Binding var isDragOver: Bool
     let onDrop: ([URL]) -> Void
 
-    private func hasSupportedFiles(info: DropInfo) -> Bool {
-        guard info.hasItemsConforming(to: [.fileURL]) else { return false }
-
-        let providers = info.itemProviders(for: [.fileURL])
-        for provider in providers {
-            // Check suggestedName for file extension
-            if let name = provider.suggestedName {
-                let ext = (name as NSString).pathExtension.lowercased()
-                if SupportedFileType.all.contains(ext) {
-                    return true
-                }
-            }
+    func makeNSView(context: Context) -> DropTargetView {
+        let view = DropTargetView()
+        view.onDragEntered = { urls in isDragOver = urls.contains { SupportedFileType.isSupported($0) } }
+        view.onDragExited = { isDragOver = false }
+        view.onDrop = { urls in
+            isDragOver = false
+            let supported = urls.filter { SupportedFileType.isSupported($0) }
+            if !supported.isEmpty { onDrop(supported) }
         }
-        return false
+        view.onDragUpdated = { urls in urls.contains { SupportedFileType.isSupported($0) } }
+        return view
     }
 
-    func validateDrop(info: DropInfo) -> Bool {
-        hasSupportedFiles(info: info)
+    func updateNSView(_ nsView: DropTargetView, context: Context) {}
+}
+
+class DropTargetView: NSView {
+    var onDragEntered: (([URL]) -> Void)?
+    var onDragExited: (() -> Void)?
+    var onDrop: (([URL]) -> Void)?
+    var onDragUpdated: (([URL]) -> Bool)?
+
+    override init(frame: NSRect) {
+        super.init(frame: frame)
+        registerForDraggedTypes([.fileURL])
     }
 
-    func dropEntered(info: DropInfo) {
-        isDragOver = hasSupportedFiles(info: info)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    func dropExited(info: DropInfo) {
-        isDragOver = false
+    private func urls(from draggingInfo: NSDraggingInfo) -> [URL] {
+        draggingInfo.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: nil) as? [URL] ?? []
     }
 
-    func dropUpdated(info: DropInfo) -> DropProposal? {
-        hasSupportedFiles(info: info) ? DropProposal(operation: .copy) : DropProposal(operation: .cancel)
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        let files = urls(from: sender)
+        onDragEntered?(files)
+        return files.contains(where: { SupportedFileType.isSupported($0) }) ? .copy : []
     }
 
-    func performDrop(info: DropInfo) -> Bool {
-        isDragOver = false
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        let files = urls(from: sender)
+        return onDragUpdated?(files) == true ? .copy : []
+    }
 
-        let providers = info.itemProviders(for: [.fileURL])
-        var urls: [URL] = []
+    override func draggingExited(_ sender: NSDraggingInfo?) {
+        onDragExited?()
+    }
 
-        let group = DispatchGroup()
-        for provider in providers {
-            group.enter()
-            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { data, _ in
-                defer { group.leave() }
-                guard let data = data as? Data,
-                      let url = URL(dataRepresentation: data, relativeTo: nil),
-                      SupportedFileType.isSupported(url) else { return }
-                urls.append(url)
-            }
-        }
-
-        group.notify(queue: .main) {
-            if !urls.isEmpty {
-                onDrop(urls)
-            }
-        }
-
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        let files = urls(from: sender)
+        onDrop?(files)
         return true
     }
 }
@@ -85,9 +83,11 @@ struct MainView: View {
                 statusBar
             }
         }
-        .onDrop(of: [.fileURL], delegate: FileDropDelegate(isDragOver: $isDragOver) { urls in
-            appState.addFiles(urls)
-        })
+        .overlay {
+            FileDropZone(isDragOver: $isDragOver) { urls in
+                appState.addFiles(urls)
+            }
+        }
         .overlay {
             if isDragOver {
                 dropOverlay

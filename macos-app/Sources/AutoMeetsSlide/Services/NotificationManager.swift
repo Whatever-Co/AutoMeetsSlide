@@ -1,4 +1,4 @@
-import Foundation
+import AppKit
 import UserNotifications
 
 @MainActor
@@ -31,12 +31,29 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         completionHandler([.list, .banner, .sound])
     }
 
+    // Handle notification click
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let userInfo = response.notification.request.content.userInfo
+        if let path = userInfo["filePath"] as? String {
+            let url = URL(fileURLWithPath: path)
+            DispatchQueue.main.async {
+                NSWorkspace.shared.open(url)
+            }
+        }
+        completionHandler()
+    }
+
     func notifyCompletion(fileName: String, outputPath: String) {
         let content = UNMutableNotificationContent()
         content.title = "Slide Complete"
         content.body = "\(fileName) has been converted"
         content.sound = .default
         content.interruptionLevel = .active
+        content.userInfo = ["filePath": outputPath]
 
         let request = UNNotificationRequest(
             identifier: UUID().uuidString,

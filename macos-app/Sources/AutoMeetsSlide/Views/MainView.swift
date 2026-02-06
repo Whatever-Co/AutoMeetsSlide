@@ -215,7 +215,7 @@ struct FileRowView: View {
             Spacer()
 
             // Actions
-            if file.status == .processing {
+            if file.status == .processing || file.status == .restoring {
                 ProgressView()
                     .scaleEffect(0.7)
             } else if file.status == .completed, let outputPath = file.outputPath {
@@ -227,7 +227,7 @@ struct FileRowView: View {
                 .buttonStyle(.borderless)
             }
 
-            if file.status != .processing {
+            if file.status != .processing && file.status != .restoring {
                 Button(action: onRemove) {
                     Image(systemName: "xmark")
                         .foregroundStyle(.secondary)
@@ -245,7 +245,7 @@ struct FileRowView: View {
         switch file.status {
         case .completed: return "checkmark.circle.fill"
         case .error: return "exclamationmark.circle.fill"
-        case .processing: return "arrow.triangle.2.circlepath"
+        case .processing, .restoring: return "arrow.triangle.2.circlepath"
         default:
             if SupportedFileType.audio.contains(file.format.lowercased()) {
                 return "waveform"
@@ -259,7 +259,7 @@ struct FileRowView: View {
         switch file.status {
         case .completed: return .green
         case .error: return .red
-        case .processing: return .blue
+        case .processing, .restoring: return .blue
         default: return .secondary
         }
     }
@@ -268,7 +268,7 @@ struct FileRowView: View {
         switch file.status {
         case .completed: return .green
         case .error: return .red
-        case .processing: return .blue
+        case .processing, .restoring: return .blue
         default: return .secondary
         }
     }

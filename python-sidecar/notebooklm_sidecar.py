@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""NotebookLM Sidecar for Tauri App.
+"""NotebookLM Sidecar for AutoMeetsSlide.
 
-This sidecar receives commands from Tauri via command line arguments
+This sidecar receives commands via command line arguments
 and communicates via JSON on stdout.
 
 Commands:
     login           - Open browser for Google login
     check-auth      - Check if authenticated
     process <file> <output_dir> - Full flow: upload, generate slides, download PDF
+    check-status <notebook_id> <task_id> - Check generation status
+    download <notebook_id> <output_dir> - Download completed slide deck PDF
 """
 
 import asyncio
@@ -126,13 +128,14 @@ async def cmd_check_auth():
 DEFAULT_SYSTEM_PROMPT = "この内容から包括的なスライドデッキを日本語で作成してください。"
 
 
-async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None = None):
+async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None = None, job_id: str | None = None):
     """Full flow: create notebook, upload source, generate slides, download PDF.
 
     Args:
         file_path: Path to input file
         output_dir: Output directory for PDF
         system_prompt: Custom instructions for slide generation (optional)
+        job_id: Unique job identifier for recovery (optional)
     """
     from notebooklm.client import NotebookLMClient
 
@@ -151,10 +154,10 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
         async with await NotebookLMClient.from_storage() as client:
             # Create notebook
             emit("progress", "Creating notebook...")
-            title = f"Auto Slide: {file_path.name}"
+            title = f"Auto Slide: {file_path.name} [{job_id}]" if job_id else f"Auto Slide: {file_path.name}"
             notebook = await client.notebooks.create(title)
             notebook_id = notebook.id
-            emit("progress", f"Notebook created: {notebook_id}")
+            emit("progress", f"Notebook created: {notebook_id}", notebook_id=notebook_id)
 
             # Add source
             emit("progress", f"Uploading source: {file_path.name}...")
@@ -175,7 +178,7 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
                 notebook_id,
                 instructions=instructions
             )
-            emit("progress", f"Generation started, task_id: {status.task_id}")
+            emit("progress", f"Generation started, task_id: {status.task_id}", task_id=status.task_id, notebook_id=notebook_id)
 
             # Wait for completion
             emit("progress", "Waiting for slide generation to complete...")
@@ -208,9 +211,91 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
         emit_error(f"Process failed: {type(e).__name__}: {e}\n{traceback.format_exc()}")
 
 
+async def cmd_find_notebook(job_id: str):
+    """Find an existing notebook by job ID and return its status."""
+    from notebooklm.client import NotebookLMClient
+
+    emit("progress", f"Searching for notebook with job ID: {job_id}")
+
+    try:
+        async with await NotebookLMClient.from_storage() as client:
+            notebooks = await client.notebooks.list()
+            for nb in notebooks:
+                if job_id in nb.title:
+                    emit("progress", f"Found notebook: {nb.id}")
+                    # Check for slide deck artifacts
+                    artifacts = await client.artifacts.list(nb.id)
+                    for artifact in artifacts:
+                        if hasattr(artifact, 'kind') and 'slide' in str(artifact.kind).lower():
+                            emit("done", f"Found notebook with slide artifact",
+                                 notebook_id=nb.id,
+                                 task_id=artifact.id,
+                                 generation_status="completed" if artifact.is_completed else "processing" if artifact.is_processing else "failed",
+                                 is_complete=artifact.is_completed,
+                                 is_failed=artifact.is_failed)
+                            return
+                    # Notebook exists but no slide artifact yet
+                    emit("done", f"Found notebook but no slide artifact",
+                         notebook_id=nb.id,
+                         generation_status="no_artifact")
+                    return
+
+            emit("done", "No matching notebook found", notebook_id=None)
+    except FileNotFoundError as e:
+        emit_error(f"Not authenticated. Run 'login' first. ({e})")
+    except Exception as e:
+        emit_error(f"Find notebook failed: {type(e).__name__}: {e}")
+
+
+async def cmd_check_status(notebook_id: str, task_id: str):
+    """Check the generation status of a task."""
+    from notebooklm.client import NotebookLMClient
+
+    emit("progress", "Checking generation status...")
+
+    try:
+        async with await NotebookLMClient.from_storage() as client:
+            status = await client.artifacts.poll_status(notebook_id, task_id)
+            emit("done", f"Status: {status.status}",
+                 generation_status=status.status,
+                 is_complete=status.is_complete,
+                 is_failed=status.is_failed,
+                 task_id=task_id)
+    except FileNotFoundError as e:
+        emit_error(f"Not authenticated. Run 'login' first. ({e})")
+    except Exception as e:
+        emit_error(f"Check status failed: {type(e).__name__}: {e}")
+
+
+async def cmd_download(notebook_id: str, output_dir: str, name: str | None = None, artifact_id: str | None = None):
+    """Download a completed slide deck PDF."""
+    from notebooklm.client import NotebookLMClient
+
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    emit("progress", "Downloading slide deck...")
+
+    try:
+        async with await NotebookLMClient.from_storage() as client:
+            file_name = f"{name}_slides.pdf" if name else "slides.pdf"
+            output_file = output_dir / file_name
+            downloaded_path = await client.artifacts.download_slide_deck(
+                notebook_id,
+                str(output_file),
+                artifact_id=artifact_id
+            )
+            emit("done", f"PDF downloaded: {downloaded_path}", output_path=str(downloaded_path))
+    except FileNotFoundError as e:
+        emit_error(f"Not authenticated. Run 'login' first. ({e})")
+    except Exception as e:
+        import traceback
+        emit_error(f"Download failed: {type(e).__name__}: {e}\n{traceback.format_exc()}")
+
+
 def main():
     if len(sys.argv) < 2:
-        emit_error("No command provided. Use: login, check-auth, or process <file> <output_dir>")
+        emit_error("No command provided. Use: login, check-auth, process, check-status, or download")
         return
 
     command = sys.argv[1]
@@ -236,7 +321,47 @@ def main():
             if idx + 1 < len(sys.argv):
                 system_prompt = sys.argv[idx + 1]
 
-        asyncio.run(cmd_process(file_path, output_dir, system_prompt))
+        # Parse --job-id flag
+        job_id = None
+        if "--job-id" in sys.argv:
+            idx = sys.argv.index("--job-id")
+            if idx + 1 < len(sys.argv):
+                job_id = sys.argv[idx + 1]
+
+        asyncio.run(cmd_process(file_path, output_dir, system_prompt, job_id))
+
+    elif command == "find-notebook":
+        if len(sys.argv) < 3:
+            emit_error("Usage: find-notebook <job_id>")
+            return
+        asyncio.run(cmd_find_notebook(sys.argv[2]))
+
+    elif command == "check-status":
+        if len(sys.argv) < 4:
+            emit_error("Usage: check-status <notebook_id> <task_id>")
+            return
+        asyncio.run(cmd_check_status(sys.argv[2], sys.argv[3]))
+
+    elif command == "download":
+        if len(sys.argv) < 4:
+            emit_error("Usage: download <notebook_id> <output_dir> [--name <stem>] [--artifact-id <id>]")
+            return
+        notebook_id = sys.argv[2]
+        output_dir = sys.argv[3]
+
+        name = None
+        if "--name" in sys.argv:
+            idx = sys.argv.index("--name")
+            if idx + 1 < len(sys.argv):
+                name = sys.argv[idx + 1]
+
+        artifact_id = None
+        if "--artifact-id" in sys.argv:
+            idx = sys.argv.index("--artifact-id")
+            if idx + 1 < len(sys.argv):
+                artifact_id = sys.argv[idx + 1]
+
+        asyncio.run(cmd_download(notebook_id, output_dir, name, artifact_id))
 
     else:
         emit_error(f"Unknown command: {command}")

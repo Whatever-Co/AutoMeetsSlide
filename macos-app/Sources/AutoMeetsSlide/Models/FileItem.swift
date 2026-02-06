@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a file in the processing queue
-struct FileItem: Identifiable, Equatable {
+struct FileItem: Identifiable, Equatable, Codable {
     let id: UUID
     let path: String
     let name: String
@@ -26,9 +26,10 @@ struct FileItem: Identifiable, Equatable {
 }
 
 /// Processing status for a file
-enum ProcessingStatus: String, Equatable {
+enum ProcessingStatus: String, Equatable, Codable {
     case pending
     case processing
+    case restoring
     case completed
     case error
 
@@ -36,6 +37,7 @@ enum ProcessingStatus: String, Equatable {
         switch self {
         case .pending: return "Pending"
         case .processing: return "Processing..."
+        case .restoring: return "Restoring..."
         case .completed: return "Completed"
         case .error: return "Error"
         }

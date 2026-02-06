@@ -17,6 +17,9 @@ struct ContentView: View {
         }
         .task {
             await appState.checkAuth()
+            if appState.isAuthenticated == true {
+                await appState.restoreInProgressItems()
+            }
         }
     }
 }

@@ -4,18 +4,27 @@ import os
 /// Commands that can be sent to the Python sidecar
 enum SidecarCommand {
     case checkAuth
-    case process(filePath: String, outputDir: String, systemPrompt: String?)
+    case process(filePath: String, outputDir: String, systemPrompt: String?, jobId: String)
+    case findNotebook(jobId: String)
+    case checkStatus(notebookId: String, taskId: String)
+    case download(notebookId: String, outputDir: String, fileNameStem: String)
 
     var arguments: [String] {
         switch self {
         case .checkAuth:
             return ["check-auth"]
-        case .process(let filePath, let outputDir, let systemPrompt):
-            var args = ["process", filePath, outputDir]
+        case .process(let filePath, let outputDir, let systemPrompt, let jobId):
+            var args = ["process", filePath, outputDir, "--job-id", jobId]
             if let prompt = systemPrompt {
                 args += ["--system-prompt", prompt]
             }
             return args
+        case .findNotebook(let jobId):
+            return ["find-notebook", jobId]
+        case .checkStatus(let notebookId, let taskId):
+            return ["check-status", notebookId, taskId]
+        case .download(let notebookId, let outputDir, let fileNameStem):
+            return ["download", notebookId, outputDir, "--name", fileNameStem]
         }
     }
 }
@@ -27,10 +36,20 @@ struct SidecarResponse: Decodable {
     let error: String?
     let authenticated: Bool?
     let outputPath: String?
+    let notebookId: String?
+    let taskId: String?
+    let generationStatus: String?
+    let isComplete: Bool?
+    let isFailed: Bool?
 
     enum CodingKeys: String, CodingKey {
         case status, message, error, authenticated
         case outputPath = "output_path"
+        case notebookId = "notebook_id"
+        case taskId = "task_id"
+        case generationStatus = "generation_status"
+        case isComplete = "is_complete"
+        case isFailed = "is_failed"
     }
 }
 
@@ -67,10 +86,10 @@ class SidecarManager {
                 let data = handle.availableData
                 guard !data.isEmpty else { return }
 
-                let response = state.withLock { state -> SidecarResponse? in
+                let responses = state.withLock { state -> [SidecarResponse] in
                     state.outputBuffer += String(data: data, encoding: .utf8) ?? ""
 
-                    var latestResponse: SidecarResponse?
+                    var parsed: [SidecarResponse] = []
 
                     // Process complete lines
                     while let newlineRange = state.outputBuffer.range(of: "\n") {
@@ -80,16 +99,16 @@ class SidecarManager {
                         guard !line.isEmpty else { continue }
 
                         if let jsonData = line.data(using: .utf8),
-                           let parsed = try? JSONDecoder().decode(SidecarResponse.self, from: jsonData) {
-                            state.lastResponse = parsed
-                            latestResponse = parsed
+                           let response = try? JSONDecoder().decode(SidecarResponse.self, from: jsonData) {
+                            state.lastResponse = response
+                            parsed.append(response)
                         }
                     }
 
-                    return latestResponse
+                    return parsed
                 }
 
-                if let response {
+                for response in responses {
                     Task { @MainActor in
                         if let message = response.message {
                             self?.currentStatus = message

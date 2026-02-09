@@ -6,6 +6,7 @@ struct SettingsView: View {
 
     @State private var systemPrompt: String = ""
     @State private var downloadFolder: String = ""
+    @State private var maxConcurrency: Int = 3
 
     var body: some View {
         Form {
@@ -35,6 +36,23 @@ struct SettingsView: View {
                         .buttonStyle(.link)
                     }
                 }
+            }
+
+            // Concurrent Processing
+            Section("Concurrent Processing") {
+                HStack {
+                    Text("Max Concurrent Jobs")
+                    Spacer()
+                    Picker("", selection: $maxConcurrency) {
+                        ForEach(1...5, id: \.self) { n in
+                            Text("\(n)").tag(n)
+                        }
+                    }
+                    .frame(width: 80)
+                }
+                Text("Number of files to process simultaneously.")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
             }
 
             // Output
@@ -89,12 +107,16 @@ struct SettingsView: View {
         .onAppear {
             systemPrompt = appState.systemPrompt
             downloadFolder = appState.downloadFolder
+            maxConcurrency = appState.maxConcurrency
         }
         .onChange(of: systemPrompt) { _, newValue in
             appState.systemPrompt = newValue
         }
         .onChange(of: downloadFolder) { _, newValue in
             appState.downloadFolder = newValue
+        }
+        .onChange(of: maxConcurrency) { _, newValue in
+            appState.maxConcurrency = newValue
         }
     }
 

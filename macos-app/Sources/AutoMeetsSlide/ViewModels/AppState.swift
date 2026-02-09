@@ -14,10 +14,19 @@ class AppState {
 
     // File queue
     var files: [FileItem] = []
-    var currentProcessingId: UUID? = nil
+    var processingIds: Set<UUID> = []
+
+    // Concurrency
+    var maxConcurrency: Int = 3 {
+        didSet {
+            UserDefaults.standard.set(maxConcurrency, forKey: "maxConcurrency")
+        }
+    }
+
+    var isProcessing: Bool { !processingIds.isEmpty }
+    var activeProcessingCount: Int { processingIds.count }
 
     // UI state
-    var currentStatus: String = "Ready"
     var showLoginWebView: Bool = false
 
     // Services
@@ -53,6 +62,10 @@ class AppState {
         }
         if let savedFolder = UserDefaults.standard.string(forKey: "downloadFolder") {
             downloadFolder = savedFolder
+        }
+        let savedConcurrency = UserDefaults.standard.integer(forKey: "maxConcurrency")
+        if savedConcurrency > 0 {
+            maxConcurrency = savedConcurrency
         }
         loadQueue()
     }
@@ -129,6 +142,7 @@ class AppState {
     }
 
     func removeFile(_ id: UUID) {
+        processingIds.remove(id)
         files.removeAll { $0.id == id }
         saveQueue()
     }
@@ -174,48 +188,57 @@ class AppState {
     // MARK: - Processing
 
     func processNextFile() async {
-        guard currentProcessingId == nil,
-              let nextFile = files.first(where: { $0.status == .pending })
-        else {
-            return
+        // Fill available slots with pending files
+        while processingIds.count < maxConcurrency,
+              let nextFile = files.first(where: { $0.status == .pending }) {
+            processingIds.insert(nextFile.id)
+            updateFileStatus(nextFile.id, status: .processing)
+
+            let file = nextFile
+            Task { [weak self] in
+                guard let self else { return }
+                await self.processFile(file)
+            }
         }
+    }
 
-        currentProcessingId = nextFile.id
-        updateFileStatus(nextFile.id, status: .processing)
-
+    private func processFile(_ file: FileItem) async {
         do {
             var capturedNotebookId: String?
             let response = try await sidecarManager.run(
                 .process(
-                    filePath: nextFile.path,
+                    filePath: file.path,
                     outputDir: downloadFolder,
                     systemPrompt: systemPrompt,
-                    jobId: nextFile.id.uuidString
+                    jobId: file.id.uuidString
                 )
             ) { [self] progress in
                 if let nid = progress.notebookId {
                     capturedNotebookId = nid
-                    updateFileStatus(nextFile.id, status: .processing, notebookId: nid)
+                    updateFileStatus(file.id, status: .processing, notebookId: nid)
                 }
             }
 
             let notebookId = response?.notebookId ?? capturedNotebookId
             if let outputPath = response?.outputPath {
-                updateFileStatus(nextFile.id, status: .completed, outputPath: outputPath, notebookId: notebookId)
-                NotificationManager.shared.notifyCompletion(fileName: nextFile.name, outputPath: outputPath)
+                updateFileStatus(file.id, status: .completed, outputPath: outputPath, notebookId: notebookId)
+                NotificationManager.shared.notifyCompletion(fileName: file.name, outputPath: outputPath)
             } else if let error = response?.error {
-                updateFileStatus(nextFile.id, status: .error, error: error)
-                NotificationManager.shared.notifyError(fileName: nextFile.name, error: error)
+                updateFileStatus(file.id, status: .error, error: error)
+                NotificationManager.shared.notifyError(fileName: file.name, error: error)
             } else {
-                updateFileStatus(nextFile.id, status: .error, error: "Unknown error")
-                NotificationManager.shared.notifyError(fileName: nextFile.name, error: "Unknown error")
+                updateFileStatus(file.id, status: .error, error: "Unknown error")
+                NotificationManager.shared.notifyError(fileName: file.name, error: "Unknown error")
             }
         } catch {
-            updateFileStatus(nextFile.id, status: .error, error: error.localizedDescription)
-            NotificationManager.shared.notifyError(fileName: nextFile.name, error: error.localizedDescription)
+            updateFileStatus(file.id, status: .error, error: error.localizedDescription)
+            NotificationManager.shared.notifyError(fileName: file.name, error: error.localizedDescription)
         }
 
-        currentProcessingId = nil
+        processingIds.remove(file.id)
+
+        // Fill the freed slot
+        await processNextFile()
     }
 
     // MARK: - Restoration
@@ -228,51 +251,68 @@ class AppState {
 
         for item in itemsToRestore {
             updateFileStatus(item.id, status: .restoring)
-            currentProcessingId = item.id
+        }
 
-            do {
-                // Search NotebookLM for a notebook matching this item's UUID
-                let findResponse = try await sidecarManager.run(
-                    .findNotebook(jobId: item.id.uuidString)
-                )
+        await withTaskGroup(of: Void.self) { group in
+            var activeCount = 0
 
-                guard let notebookId = findResponse?.notebookId else {
-                    // No notebook found - requeue for processing from scratch
-                    Log.general.info("No notebook found for \(item.name), requeuing as pending")
-                    updateFileStatus(item.id, status: .pending)
-                    currentProcessingId = nil
-                    continue
+            for item in itemsToRestore {
+                if activeCount >= maxConcurrency {
+                    await group.next()
+                    activeCount -= 1
                 }
 
-                let taskId = findResponse?.taskId
-                let genStatus = findResponse?.generationStatus
-
-                // Save notebookId immediately so the UI can show the link
-                updateFileStatus(item.id, status: .restoring, notebookId: notebookId)
-
-                Log.general.info("Found notebook \(notebookId) for \(item.name), status=\(genStatus ?? "unknown")")
-
-                if genStatus == "completed" {
-                    try await downloadAndComplete(item: item, notebookId: notebookId)
-                } else if genStatus == "failed" {
-                    updateFileStatus(item.id, status: .error, error: "Generation failed on NotebookLM")
-                } else if genStatus == "no_artifact" {
-                    // Notebook exists but generation hasn't started - requeue
-                    Log.general.info("No artifact for \(item.name), requeuing as pending")
-                    updateFileStatus(item.id, status: .pending)
-                } else if let taskId {
-                    // Still processing - poll until done
-                    updateFileStatus(item.id, status: .processing)
-                    try await pollUntilComplete(item: item, notebookId: notebookId, taskId: taskId)
-                } else {
-                    updateFileStatus(item.id, status: .pending)
+                activeCount += 1
+                group.addTask { [weak self] in
+                    guard let self else { return }
+                    await self.restoreSingleItem(item)
                 }
-            } catch {
-                updateFileStatus(item.id, status: .error, error: "Restore failed: \(error.localizedDescription)")
             }
 
-            currentProcessingId = nil
+            await group.waitForAll()
         }
+    }
+
+    private func restoreSingleItem(_ item: FileItem) async {
+        processingIds.insert(item.id)
+
+        do {
+            let findResponse = try await sidecarManager.run(
+                .findNotebook(jobId: item.id.uuidString)
+            )
+
+            guard let notebookId = findResponse?.notebookId else {
+                Log.general.info("No notebook found for \(item.name), requeuing as pending")
+                updateFileStatus(item.id, status: .pending)
+                processingIds.remove(item.id)
+                return
+            }
+
+            let taskId = findResponse?.taskId
+            let genStatus = findResponse?.generationStatus
+
+            updateFileStatus(item.id, status: .restoring, notebookId: notebookId)
+
+            Log.general.info("Found notebook \(notebookId) for \(item.name), status=\(genStatus ?? "unknown")")
+
+            if genStatus == "completed" {
+                try await downloadAndComplete(item: item, notebookId: notebookId)
+            } else if genStatus == "failed" {
+                updateFileStatus(item.id, status: .error, error: "Generation failed on NotebookLM")
+            } else if genStatus == "no_artifact" {
+                Log.general.info("No artifact for \(item.name), requeuing as pending")
+                updateFileStatus(item.id, status: .pending)
+            } else if let taskId {
+                updateFileStatus(item.id, status: .processing)
+                try await pollUntilComplete(item: item, notebookId: notebookId, taskId: taskId)
+            } else {
+                updateFileStatus(item.id, status: .pending)
+            }
+        } catch {
+            updateFileStatus(item.id, status: .error, error: "Restore failed: \(error.localizedDescription)")
+        }
+
+        processingIds.remove(item.id)
     }
 
     private func downloadAndComplete(item: FileItem, notebookId: String) async throws {

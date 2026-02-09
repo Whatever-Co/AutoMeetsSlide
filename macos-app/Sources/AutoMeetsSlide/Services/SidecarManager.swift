@@ -53,20 +53,13 @@ struct SidecarResponse: Decodable {
     }
 }
 
-/// Manages communication with the Python sidecar process
-@MainActor
-@Observable
+/// Manages communication with the Python sidecar process.
+/// Stateless — each `run()` call spawns an independent process, safe for concurrent use.
 class SidecarManager {
-    var currentStatus: String = "Ready"
-    var isRunning: Bool = false
-
-    private var currentProcess: Process?
 
     /// Run a sidecar command and return the final response
+    @MainActor
     func run(_ command: SidecarCommand, onProgress: ((SidecarResponse) -> Void)? = nil) async throws -> SidecarResponse? {
-        isRunning = true
-        defer { isRunning = false }
-
         // Thread-safe state for concurrent access from readabilityHandler
         let state = OSAllocatedUnfairLock(initialState: (outputBuffer: "", lastResponse: SidecarResponse?.none))
 
@@ -81,8 +74,13 @@ class SidecarManager {
             process.standardError = stderr
             process.environment = ProcessInfo.processInfo.environment
 
-            // Handle stdout line by line for progress updates
-            stdout.fileHandleForReading.readabilityHandler = { [weak self] handle in
+            // Drain stderr asynchronously to prevent pipe buffer blockage
+            stderr.fileHandleForReading.readabilityHandler = { handle in
+                _ = handle.availableData
+            }
+
+            // Parse JSON lines from stdout
+            stdout.fileHandleForReading.readabilityHandler = { handle in
                 let data = handle.availableData
                 guard !data.isEmpty else { return }
 
@@ -110,27 +108,51 @@ class SidecarManager {
 
                 for response in responses {
                     Task { @MainActor in
-                        if let message = response.message {
-                            self?.currentStatus = message
-                        }
-                        if let error = response.error {
-                            self?.currentStatus = "Error: \(error)"
-                        }
                         onProgress?(response)
                     }
                 }
             }
 
             process.terminationHandler = { _ in
+                // Stop readability handlers
                 stdout.fileHandleForReading.readabilityHandler = nil
                 stderr.fileHandleForReading.readabilityHandler = nil
+
+                // Flush remaining stdout data
+                let remainingData = stdout.fileHandleForReading.readDataToEndOfFile()
+                if !remainingData.isEmpty {
+                    state.withLock { state in
+                        state.outputBuffer += String(data: remainingData, encoding: .utf8) ?? ""
+                        while let newlineRange = state.outputBuffer.range(of: "\n") {
+                            let line = String(state.outputBuffer[..<newlineRange.lowerBound])
+                            state.outputBuffer = String(state.outputBuffer[newlineRange.upperBound...])
+                            guard !line.isEmpty else { continue }
+                            if let jsonData = line.data(using: .utf8),
+                               let response = try? JSONDecoder().decode(SidecarResponse.self, from: jsonData) {
+                                state.lastResponse = response
+                            }
+                        }
+                    }
+                }
+
+                // Capture stderr for error diagnostics
+                let stderrData = stderr.fileHandleForReading.readDataToEndOfFile()
+                let stderrText = String(data: stderrData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
+
                 let finalResponse = state.withLock { $0.lastResponse }
+
+                // If process failed with no JSON error, surface stderr
+                if finalResponse?.error == nil,
+                   finalResponse?.outputPath == nil,
+                   let stderrText, !stderrText.isEmpty {
+                    Log.sidecar.error("Sidecar stderr: \(stderrText)")
+                }
+
                 continuation.resume(returning: finalResponse)
             }
 
             do {
                 try process.run()
-                currentProcess = process
             } catch {
                 continuation.resume(throwing: error)
             }
@@ -149,11 +171,5 @@ class SidecarManager {
 
         // Development fallback - use the Python sidecar directly from dist
         return URL(fileURLWithPath: "/Users/hiko/Documents/repos/Work/AutoMeetsSlide/python-sidecar/dist/notebooklm-cli")
-    }
-
-    /// Cancel the current process
-    func cancel() {
-        currentProcess?.terminate()
-        currentProcess = nil
     }
 }

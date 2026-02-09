@@ -79,7 +79,7 @@ struct MainView: View {
             }
 
             // Status bar
-            if appState.sidecarManager.isRunning {
+            if appState.isProcessing {
                 statusBar
             }
         }
@@ -142,7 +142,7 @@ struct MainView: View {
         HStack {
             ProgressView()
                 .scaleEffect(0.7)
-            Text(appState.sidecarManager.currentStatus)
+            Text("Processing \(appState.activeProcessingCount) file\(appState.activeProcessingCount == 1 ? "" : "s")...")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)

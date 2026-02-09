@@ -178,6 +178,9 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
                 notebook_id,
                 instructions=instructions
             )
+            if not status.task_id:
+                emit_error(f"Slide generation failed to start (no task_id returned). The API may have rejected the request.")
+                return
             emit("progress", f"Generation started, task_id: {status.task_id}", task_id=status.task_id, notebook_id=notebook_id)
 
             # Wait for completion

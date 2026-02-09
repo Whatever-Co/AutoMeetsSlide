@@ -19,6 +19,24 @@ import sys
 from pathlib import Path
 
 
+def unique_path(path: Path) -> Path:
+    """Return a unique file path by appending a number if the file already exists.
+
+    Example: slides.pdf -> slides 2.pdf -> slides 3.pdf
+    """
+    if not path.exists():
+        return path
+    stem = path.stem
+    suffix = path.suffix
+    parent = path.parent
+    counter = 2
+    while True:
+        candidate = parent / f"{stem} {counter}{suffix}"
+        if not candidate.exists():
+            return candidate
+        counter += 1
+
+
 def emit(status: str, message: str, **kwargs):
     """Emit a JSON status message to stdout."""
     data = {"status": status, "message": message, **kwargs}
@@ -197,7 +215,7 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
                 emit("progress", "Slide generation complete!")
 
             # Download PDF
-            output_file = output_dir / f"{file_path.stem}_slides.pdf"
+            output_file = unique_path(output_dir / f"{file_path.stem}_slides.pdf")
             emit("progress", f"Downloading PDF to: {output_file}")
 
             downloaded_path = await client.artifacts.download_slide_deck(
@@ -282,7 +300,7 @@ async def cmd_download(notebook_id: str, output_dir: str, name: str | None = Non
     try:
         async with await NotebookLMClient.from_storage() as client:
             file_name = f"{name}_slides.pdf" if name else "slides.pdf"
-            output_file = output_dir / file_name
+            output_file = unique_path(output_dir / file_name)
             downloaded_path = await client.artifacts.download_slide_deck(
                 notebook_id,
                 str(output_file),

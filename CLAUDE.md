@@ -64,6 +64,7 @@ AutoMeetsSlide/
 - Commands: `login`, `check-auth`, `process` (supports `--system-prompt` flag)
 - Communicates via JSON on stdout
 - Uses `notebooklm-py` library for NotebookLM API
+- Duplicate file handling: automatically appends a number suffix (e.g., `_slides 2.pdf`) when output file already exists
 
 ### Data Flow
 1. User drops file → FileItem added to queue (pending)

@@ -33,6 +33,6 @@ exe = EXE(
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
-    codesign_identity=None,
+    codesign_identity='Developer ID Application: Whatever Co. (G5G54TCH8W)',
     entitlements_file=None,
 )

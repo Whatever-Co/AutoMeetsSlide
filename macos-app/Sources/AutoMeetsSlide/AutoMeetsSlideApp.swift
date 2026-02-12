@@ -27,7 +27,7 @@ struct AutoMeetsSlideApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {
                 Button("Add Files...") {
-                    AppState.shared.selectFiles()
+                    AppState.shared.selectFilesForSettingsSheet()
                 }
                 .keyboardShortcut("O", modifiers: .command)
                 .disabled(AppState.shared.isAuthenticated != true)

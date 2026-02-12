@@ -28,6 +28,7 @@ class AppState {
 
     // UI state
     var showLoginWebView: Bool = false
+    var pendingDroppedFiles: [URL]? = nil
 
     // Services
     let sidecarManager = SidecarManager()
@@ -126,12 +127,49 @@ class AppState {
         }
     }
 
+    /// Open file picker and show the settings sheet for the selected files
+    func selectFilesForSettingsSheet() {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = true
+        panel.canChooseDirectories = false
+        panel.allowedContentTypes = [
+            .mp3, .wav, .mpeg4Audio,
+            .pdf, .plainText,
+            UTType(filenameExtension: "docx")!
+        ]
+
+        if panel.runModal() == .OK {
+            let supported = panel.urls.filter { SupportedFileType.isSupported($0) }
+            if !supported.isEmpty {
+                pendingDroppedFiles = supported
+            }
+        }
+    }
+
     func addFiles(_ urls: [URL]) {
         let newItems = urls.compactMap { url -> FileItem? in
             guard SupportedFileType.isSupported(url) else { return nil }
             return FileItem(url: url)
         }
         files.append(contentsOf: newItems)
+        saveQueue()
+    }
+
+    /// Add a job with multiple sources and a custom prompt
+    func addJob(files fileURLs: [URL], sourceURLs: [String], customPrompt: String) {
+        guard let primaryURL = fileURLs.first else {
+            // URL-only job not supported yet
+            return
+        }
+
+        var item = FileItem(url: primaryURL)
+        item.additionalPaths = fileURLs.dropFirst().map(\.path)
+        item.sourceURLs = sourceURLs
+        // Only store custom prompt if it differs from default
+        if customPrompt != Self.defaultSystemPrompt {
+            item.customPrompt = customPrompt
+        }
+        files.append(item)
         saveQueue()
     }
 
@@ -205,12 +243,15 @@ class AppState {
     private func processFile(_ file: FileItem) async {
         do {
             var capturedNotebookId: String?
+            let effectivePrompt = file.customPrompt ?? systemPrompt
             let response = try await sidecarManager.run(
                 .process(
                     filePath: file.path,
                     outputDir: downloadFolder,
-                    systemPrompt: systemPrompt,
-                    jobId: file.id.uuidString
+                    systemPrompt: effectivePrompt,
+                    jobId: file.id.uuidString,
+                    additionalFiles: file.additionalPaths,
+                    sourceURLs: file.sourceURLs
                 )
             ) { [self] progress in
                 if let nid = progress.notebookId {

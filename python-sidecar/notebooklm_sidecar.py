@@ -146,14 +146,23 @@ async def cmd_check_auth():
 DEFAULT_SYSTEM_PROMPT = "この内容から包括的なスライドデッキを日本語で作成してください。"
 
 
-async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None = None, job_id: str | None = None):
-    """Full flow: create notebook, upload source, generate slides, download PDF.
+async def cmd_process(
+    file_path: str,
+    output_dir: str,
+    system_prompt: str | None = None,
+    job_id: str | None = None,
+    additional_files: list[str] | None = None,
+    source_urls: list[str] | None = None,
+):
+    """Full flow: create notebook, upload source(s), generate slides, download PDF.
 
     Args:
-        file_path: Path to input file
+        file_path: Path to primary input file
         output_dir: Output directory for PDF
         system_prompt: Custom instructions for slide generation (optional)
         job_id: Unique job identifier for recovery (optional)
+        additional_files: Additional source file paths (optional)
+        source_urls: Web/Google Doc URLs to add as sources (optional)
     """
     from notebooklm.client import NotebookLMClient
 
@@ -177,17 +186,37 @@ async def cmd_process(file_path: str, output_dir: str, system_prompt: str | None
             notebook_id = notebook.id
             emit("progress", f"Notebook created: {notebook_id}", notebook_id=notebook_id)
 
-            # Add source
+            # Add primary source
             emit("progress", f"Uploading source: {file_path.name}...")
             source = await client.sources.add_file(notebook_id, str(file_path))
             emit("progress", f"Source uploaded: {source.id}")
+            source_ids = [(source.id, file_path.name)]
 
-            # Wait for source to be processed
-            emit("progress", "Waiting for source to be processed...")
-            ready_source = await client.sources.wait_until_ready(
-                notebook_id, source.id, timeout=300.0  # 5 minutes for audio
-            )
-            emit("progress", f"Source ready: {ready_source.title}")
+            # Add additional file sources
+            for af_path in (additional_files or []):
+                af = Path(af_path)
+                if not af.exists():
+                    emit("progress", f"Skipping missing file: {af}")
+                    continue
+                emit("progress", f"Uploading additional source: {af.name}...")
+                af_source = await client.sources.add_file(notebook_id, str(af))
+                emit("progress", f"Additional source uploaded: {af_source.id}")
+                source_ids.append((af_source.id, af.name))
+
+            # Add URL sources
+            for url in (source_urls or []):
+                emit("progress", f"Adding URL source: {url}...")
+                url_source = await client.sources.add_url(notebook_id, url)
+                emit("progress", f"URL source added: {url_source.id}")
+                source_ids.append((url_source.id, url))
+
+            # Wait for all sources to be processed
+            for sid, sname in source_ids:
+                emit("progress", f"Waiting for source to be processed: {sname}...")
+                ready_source = await client.sources.wait_until_ready(
+                    notebook_id, sid, timeout=300.0  # 5 minutes for audio
+                )
+                emit("progress", f"Source ready: {ready_source.title}")
 
             # Generate slides
             emit("progress", "Generating slide deck...")
@@ -330,7 +359,7 @@ def main():
 
     elif command == "process":
         if len(sys.argv) < 4:
-            emit_error("Usage: process <file_path> <output_dir> [--system-prompt <prompt>]")
+            emit_error("Usage: process <file_path> <output_dir> [--system-prompt <prompt>] [--source-file <path>]... [--source-url <url>]...")
             return
         file_path = sys.argv[2]
         output_dir = sys.argv[3]
@@ -349,7 +378,19 @@ def main():
             if idx + 1 < len(sys.argv):
                 job_id = sys.argv[idx + 1]
 
-        asyncio.run(cmd_process(file_path, output_dir, system_prompt, job_id))
+        # Parse --source-file flags (can appear multiple times)
+        additional_files = []
+        for i, arg in enumerate(sys.argv):
+            if arg == "--source-file" and i + 1 < len(sys.argv):
+                additional_files.append(sys.argv[i + 1])
+
+        # Parse --source-url flags (can appear multiple times)
+        source_urls = []
+        for i, arg in enumerate(sys.argv):
+            if arg == "--source-url" and i + 1 < len(sys.argv):
+                source_urls.append(sys.argv[i + 1])
+
+        asyncio.run(cmd_process(file_path, output_dir, system_prompt, job_id, additional_files or None, source_urls or None))
 
     elif command == "find-notebook":
         if len(sys.argv) < 3:

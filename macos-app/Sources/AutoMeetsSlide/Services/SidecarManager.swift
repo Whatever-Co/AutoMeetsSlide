@@ -4,7 +4,7 @@ import os
 /// Commands that can be sent to the Python sidecar
 enum SidecarCommand {
     case checkAuth
-    case process(filePath: String, outputDir: String, systemPrompt: String?, jobId: String)
+    case process(filePath: String, outputDir: String, systemPrompt: String?, jobId: String, additionalFiles: [String] = [], sourceURLs: [String] = [])
     case findNotebook(jobId: String)
     case checkStatus(notebookId: String, taskId: String)
     case download(notebookId: String, outputDir: String, fileNameStem: String)
@@ -13,10 +13,16 @@ enum SidecarCommand {
         switch self {
         case .checkAuth:
             return ["check-auth"]
-        case .process(let filePath, let outputDir, let systemPrompt, let jobId):
+        case .process(let filePath, let outputDir, let systemPrompt, let jobId, let additionalFiles, let sourceURLs):
             var args = ["process", filePath, outputDir, "--job-id", jobId]
             if let prompt = systemPrompt {
                 args += ["--system-prompt", prompt]
+            }
+            for additionalFile in additionalFiles {
+                args += ["--source-file", additionalFile]
+            }
+            for url in sourceURLs {
+                args += ["--source-url", url]
             }
             return args
         case .findNotebook(let jobId):

@@ -85,12 +85,29 @@ struct MainView: View {
         }
         .overlay {
             FileDropZone(isDragOver: $isDragOver) { urls in
-                appState.addFiles(urls)
+                appState.pendingDroppedFiles = urls
             }
         }
         .overlay {
             if isDragOver {
                 dropOverlay
+            }
+        }
+        .sheet(isPresented: Binding(
+            get: { appState.pendingDroppedFiles != nil },
+            set: { if !$0 { appState.pendingDroppedFiles = nil } }
+        )) {
+            if let files = appState.pendingDroppedFiles {
+                FileDropSettingsView(
+                    droppedFiles: files,
+                    onGenerate: { files, sourceURLs, prompt in
+                        appState.addJob(files: files, sourceURLs: sourceURLs, customPrompt: prompt)
+                        appState.pendingDroppedFiles = nil
+                    },
+                    onCancel: {
+                        appState.pendingDroppedFiles = nil
+                    }
+                )
             }
         }
         .task {
@@ -113,12 +130,12 @@ struct MainView: View {
                 .font(.caption)
                 .foregroundStyle(.tertiary)
 
-            Button("Select Files", action: appState.selectFiles)
+            Button("Select Files", action: appState.selectFilesForSettingsSheet)
                 .buttonStyle(.borderedProminent)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
-        .onTapGesture(perform: appState.selectFiles)
+        .onTapGesture(perform: appState.selectFilesForSettingsSheet)
     }
 
     // MARK: - File List
@@ -199,6 +216,15 @@ struct FileRowView: View {
                         .background(.quaternary)
                         .clipShape(Capsule())
 
+                    if totalSourceCount > 1 {
+                        Text("\(totalSourceCount) sources")
+                            .font(.caption)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(.quaternary)
+                            .clipShape(Capsule())
+                    }
+
                     Text(file.status.displayName)
                         .font(.caption)
                         .foregroundStyle(statusColor)
@@ -251,6 +277,10 @@ struct FileRowView: View {
         .padding(.vertical, 10)
         .background(Color(nsColor: .controlBackgroundColor))
         .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+
+    private var totalSourceCount: Int {
+        1 + file.additionalPaths.count + file.sourceURLs.count
     }
 
     private var fileIcon: String {

@@ -13,6 +13,11 @@ struct FileItem: Identifiable, Equatable, Codable {
     var error: String?
     let addedAt: Date
 
+    // Per-job settings
+    var additionalPaths: [String]
+    var sourceURLs: [String]
+    var customPrompt: String?
+
     init(url: URL) {
         self.id = UUID()
         self.path = url.path
@@ -24,6 +29,9 @@ struct FileItem: Identifiable, Equatable, Codable {
         self.notebookId = nil
         self.error = nil
         self.addedAt = Date()
+        self.additionalPaths = []
+        self.sourceURLs = []
+        self.customPrompt = nil
     }
 }
 

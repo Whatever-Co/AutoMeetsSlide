@@ -112,21 +112,6 @@ class AppState {
 
     // MARK: - File Queue
 
-    func selectFiles() {
-        let panel = NSOpenPanel()
-        panel.allowsMultipleSelection = true
-        panel.canChooseDirectories = false
-        panel.allowedContentTypes = [
-            .mp3, .wav, .mpeg4Audio,
-            .pdf, .plainText,
-            UTType(filenameExtension: "docx")!
-        ]
-
-        if panel.runModal() == .OK {
-            addFiles(panel.urls)
-        }
-    }
-
     /// Open file picker and show the settings sheet for the selected files
     func selectFilesForSettingsSheet() {
         let panel = NSOpenPanel()

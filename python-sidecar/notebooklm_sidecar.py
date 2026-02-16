@@ -223,6 +223,7 @@ async def cmd_process(
             instructions = system_prompt or DEFAULT_SYSTEM_PROMPT
             status = await client.artifacts.generate_slide_deck(
                 notebook_id,
+                source_ids=[sid for sid, _ in source_ids],
                 instructions=instructions
             )
             if not status.task_id:

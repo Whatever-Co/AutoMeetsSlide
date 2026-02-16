@@ -194,6 +194,12 @@ struct FileRowView: View {
     let file: FileItem
     let onRemove: () -> Void
 
+    @State private var isRotating = false
+
+    private var isProcessing: Bool {
+        file.status == .processing || file.status == .restoring
+    }
+
     var body: some View {
         HStack(spacing: 12) {
             // File icon
@@ -201,6 +207,17 @@ struct FileRowView: View {
                 .font(.title2)
                 .foregroundStyle(iconColor)
                 .frame(width: 32)
+                .rotationEffect(.degrees(isRotating ? 360 : 0))
+                .animation(
+                    isProcessing ? .linear(duration: 1.5).repeatForever(autoreverses: false) : .default,
+                    value: isRotating
+                )
+                .onChange(of: isProcessing) { _, newValue in
+                    isRotating = newValue
+                }
+                .onAppear {
+                    isRotating = isProcessing
+                }
 
             // File info
             VStack(alignment: .leading, spacing: 2) {
@@ -252,10 +269,7 @@ struct FileRowView: View {
                 .help("Open in NotebookLM")
             }
 
-            if file.status == .processing || file.status == .restoring {
-                ProgressView()
-                    .scaleEffect(0.7)
-            } else if file.status == .completed, let outputPath = file.outputPath {
+            if file.status == .completed, let outputPath = file.outputPath {
                 Button {
                     NSWorkspace.shared.selectFile(outputPath, inFileViewerRootedAtPath: "")
                 } label: {

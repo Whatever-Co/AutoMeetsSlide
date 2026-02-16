@@ -271,12 +271,12 @@ struct FileRowView: View {
 
             if file.status == .completed, let outputPath = file.outputPath {
                 Button {
-                    NSWorkspace.shared.selectFile(outputPath, inFileViewerRootedAtPath: "")
+                    NSWorkspace.shared.open(URL(fileURLWithPath: outputPath))
                 } label: {
-                    Image(systemName: "folder")
+                    Image(systemName: "doc.richtext")
                 }
                 .buttonStyle(.borderless)
-                .help("Show in Finder")
+                .help("Open PDF")
             }
 
             if file.status != .processing && file.status != .restoring {

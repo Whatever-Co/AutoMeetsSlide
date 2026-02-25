@@ -7,6 +7,7 @@ struct SettingsView: View {
     @State private var systemPrompt: String = ""
     @State private var downloadFolder: String = ""
     @State private var maxConcurrency: Int = 3
+    @State private var autoDeleteNotebook: Bool = false
 
     var body: some View {
         Form {
@@ -69,6 +70,14 @@ struct SettingsView: View {
                 }
             }
 
+            // Notebook
+            Section("Notebook") {
+                Toggle("Auto-delete notebook after download", isOn: $autoDeleteNotebook)
+                Text("Automatically delete the NotebookLM notebook after the slide PDF is downloaded.")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+            }
+
             // About
             Section {
                 HStack {
@@ -118,6 +127,7 @@ struct SettingsView: View {
             systemPrompt = appState.systemPrompt
             downloadFolder = appState.downloadFolder
             maxConcurrency = appState.maxConcurrency
+            autoDeleteNotebook = appState.autoDeleteNotebook
         }
         .onChange(of: systemPrompt) { _, newValue in
             appState.systemPrompt = newValue
@@ -127,6 +137,9 @@ struct SettingsView: View {
         }
         .onChange(of: maxConcurrency) { _, newValue in
             appState.maxConcurrency = newValue
+        }
+        .onChange(of: autoDeleteNotebook) { _, newValue in
+            appState.autoDeleteNotebook = newValue
         }
     }
 

@@ -48,6 +48,12 @@ class AppState {
         }
     }
 
+    var autoDeleteNotebook: Bool = false {
+        didSet {
+            UserDefaults.standard.set(autoDeleteNotebook, forKey: "autoDeleteNotebook")
+        }
+    }
+
     // Queue persistence
     private static let queueFileURL: URL = {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
@@ -68,6 +74,7 @@ class AppState {
         if savedConcurrency > 0 {
             maxConcurrency = savedConcurrency
         }
+        autoDeleteNotebook = UserDefaults.standard.bool(forKey: "autoDeleteNotebook")
         loadQueue()
     }
 
@@ -141,7 +148,7 @@ class AppState {
     }
 
     /// Add a job with multiple sources and a custom prompt
-    func addJob(files fileURLs: [URL], sourceURLs: [String], customPrompt: String) {
+    func addJob(files fileURLs: [URL], sourceURLs: [String], customPrompt: String, deleteNotebook: Bool) {
         guard let primaryURL = fileURLs.first else {
             // URL-only job not supported yet
             return
@@ -153,6 +160,10 @@ class AppState {
         // Only store custom prompt if it differs from default
         if customPrompt != Self.defaultSystemPrompt {
             item.customPrompt = customPrompt
+        }
+        // Only store if it differs from global default
+        if deleteNotebook != autoDeleteNotebook {
+            item.deleteNotebook = deleteNotebook
         }
         files.append(item)
         saveQueue()
@@ -229,6 +240,7 @@ class AppState {
         do {
             var capturedNotebookId: String?
             let effectivePrompt = file.customPrompt ?? systemPrompt
+            let shouldDeleteNotebook = file.deleteNotebook ?? autoDeleteNotebook
             let response = try await sidecarManager.run(
                 .process(
                     filePath: file.path,
@@ -236,7 +248,8 @@ class AppState {
                     systemPrompt: effectivePrompt,
                     jobId: file.id.uuidString,
                     additionalFiles: file.additionalPaths,
-                    sourceURLs: file.sourceURLs
+                    sourceURLs: file.sourceURLs,
+                    deleteNotebook: shouldDeleteNotebook
                 )
             ) { [self] progress in
                 if let nid = progress.notebookId {

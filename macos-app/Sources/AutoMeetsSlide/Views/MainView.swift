@@ -100,8 +100,8 @@ struct MainView: View {
             if let files = appState.pendingDroppedFiles {
                 FileDropSettingsView(
                     droppedFiles: files,
-                    onGenerate: { files, sourceURLs, prompt in
-                        appState.addJob(files: files, sourceURLs: sourceURLs, customPrompt: prompt)
+                    onGenerate: { files, sourceURLs, prompt, deleteNotebook in
+                        appState.addJob(files: files, sourceURLs: sourceURLs, customPrompt: prompt, deleteNotebook: deleteNotebook)
                         appState.pendingDroppedFiles = nil
                     },
                     onCancel: {

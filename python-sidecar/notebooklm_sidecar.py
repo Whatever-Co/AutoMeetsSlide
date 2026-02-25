@@ -153,6 +153,7 @@ async def cmd_process(
     job_id: str | None = None,
     additional_files: list[str] | None = None,
     source_urls: list[str] | None = None,
+    delete_notebook: bool = False,
 ):
     """Full flow: create notebook, upload source(s), generate slides, download PDF.
 
@@ -254,6 +255,15 @@ async def cmd_process(
             )
 
             emit("done", f"PDF downloaded: {downloaded_path}", output_path=str(downloaded_path), notebook_id=notebook_id)
+
+            # Delete notebook after successful download if requested
+            if delete_notebook:
+                emit("progress", f"Deleting notebook {notebook_id}...")
+                try:
+                    await client.notebooks.delete(notebook_id)
+                    emit("progress", f"Notebook deleted: {notebook_id}")
+                except Exception as del_err:
+                    emit("progress", f"Warning: Failed to delete notebook: {del_err}")
 
     except FileNotFoundError as e:
         emit_error(f"Not authenticated. Run 'login' first. ({e})")
@@ -391,7 +401,10 @@ def main():
             if arg == "--source-url" and i + 1 < len(sys.argv):
                 source_urls.append(sys.argv[i + 1])
 
-        asyncio.run(cmd_process(file_path, output_dir, system_prompt, job_id, additional_files or None, source_urls or None))
+        # Parse --delete-notebook flag
+        delete_notebook = "--delete-notebook" in sys.argv
+
+        asyncio.run(cmd_process(file_path, output_dir, system_prompt, job_id, additional_files or None, source_urls or None, delete_notebook))
 
     elif command == "find-notebook":
         if len(sys.argv) < 3:

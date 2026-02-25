@@ -17,6 +17,7 @@ struct FileItem: Identifiable, Equatable, Codable {
     var additionalPaths: [String]
     var sourceURLs: [String]
     var customPrompt: String?
+    var deleteNotebook: Bool?
 
     init(url: URL) {
         self.id = UUID()
@@ -32,6 +33,7 @@ struct FileItem: Identifiable, Equatable, Codable {
         self.additionalPaths = []
         self.sourceURLs = []
         self.customPrompt = nil
+        self.deleteNotebook = nil
     }
 }
 

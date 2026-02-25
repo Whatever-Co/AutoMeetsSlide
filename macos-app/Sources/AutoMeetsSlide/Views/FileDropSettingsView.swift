@@ -8,8 +8,9 @@ struct FileDropSettingsView: View {
     @State private var sourceURLs: [String] = []
     @State private var urlInput: String = ""
     @State private var prompt: String = AppState.defaultSystemPrompt
+    @State private var deleteNotebook: Bool = false
     @State private var isDragOver = false
-    let onGenerate: (_ files: [URL], _ sourceURLs: [String], _ prompt: String) -> Void
+    let onGenerate: (_ files: [URL], _ sourceURLs: [String], _ prompt: String, _ deleteNotebook: Bool) -> Void
     let onCancel: () -> Void
 
     var body: some View {
@@ -36,6 +37,11 @@ struct FileDropSettingsView: View {
 
                     // Prompt section
                     promptSection
+
+                    Divider()
+
+                    // Options section
+                    optionsSection
                 }
                 .padding(20)
             }
@@ -56,8 +62,8 @@ struct FileDropSettingsView: View {
         }
         .frame(width: 480, height: 560)
         .onAppear {
-            // Load saved prompt
             prompt = AppState.shared.systemPrompt
+            deleteNotebook = AppState.shared.autoDeleteNotebook
         }
     }
 
@@ -219,11 +225,19 @@ struct FileDropSettingsView: View {
         }
     }
 
+    // MARK: - Options
+
+    private var optionsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Toggle("Delete notebook after download", isOn: $deleteNotebook)
+        }
+    }
+
     // MARK: - Actions
 
     private func generate() {
         let trimmedPrompt = prompt.trimmingCharacters(in: .whitespacesAndNewlines)
-        onGenerate(droppedFiles, sourceURLs, trimmedPrompt.isEmpty ? AppState.defaultSystemPrompt : trimmedPrompt)
+        onGenerate(droppedFiles, sourceURLs, trimmedPrompt.isEmpty ? AppState.defaultSystemPrompt : trimmedPrompt, deleteNotebook)
     }
 
     private func addURL() {

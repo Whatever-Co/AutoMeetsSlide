@@ -3,13 +3,27 @@
     <channel>
         <title>AutoMeetsSlide</title>
         <item>
+            <title>1.5.1</title>
+            <pubDate>Wed, 25 Feb 2026 15:44:52 +0900</pubDate>
+            <sparkle:version>15</sparkle:version>
+            <sparkle:shortVersionString>1.5.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.1/AutoMeetsSlide-1.5.1.dmg" length="57394663" type="application/octet-stream" sparkle:edSignature="pdGkaJrj59pvbRIdkgNuFD5CvRoU4CXEQPkoDiEqkjhget+/19pEkD/NKrLIOou5htQoRt3oP+7seXGE9rFSAw=="/>
+            <sparkle:deltas>
+                <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.1/AutoMeetsSlide15-14.delta" sparkle:deltaFrom="14" length="689722" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="980432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="BrOVVM7qem/h28VV3cq9F+zrdcdNM9c+1PS1/GqyH3N/RqCYmU8jtHL9qKn96wpYabODAjj62VYMcHLztvhcBg=="/>
+                <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.1/AutoMeetsSlide15-13.delta" sparkle:deltaFrom="13" length="761190" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="980432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="e5QekE8Kqcbnan84Ws2W8p5Svo/i/LNVz7ggUrfdDD5eQ4F6qEcmkD8CNQFDQO1rk+9s3YTLvoiy2ZKVx4O6AA=="/>
+                <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.1/AutoMeetsSlide15-12.delta" sparkle:deltaFrom="12" length="758834" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="980432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="Sbuv/1dzF+vsz8FD3MvaEQm1UtyvgsK7V8Dfqa0cXJLIpPl/equ+LrR9N+w/OHmX2eMajjIxjfovYqjaUdTNCg=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>1.5.0</title>
             <pubDate>Wed, 25 Feb 2026 13:09:11 +0900</pubDate>
             <sparkle:version>14</sparkle:version>
             <sparkle:shortVersionString>1.5.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.0/AutoMeetsSlide-1.5.0.dmg" length="57394814" type="application/octet-stream" sparkle:edSignature="Ig0GtBynJBSe6t4nZpQcqTNL3ntLShUKNQSfn+jlGJnr1tA6maqTBs8t0RJ3nqhY+XwjUTgasyZDV39DbWaODQ=="/>
+            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.1/AutoMeetsSlide-1.5.0.dmg" length="57394814" type="application/octet-stream" sparkle:edSignature="Ig0GtBynJBSe6t4nZpQcqTNL3ntLShUKNQSfn+jlGJnr1tA6maqTBs8t0RJ3nqhY+XwjUTgasyZDV39DbWaODQ=="/>
             <sparkle:deltas>
                 <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.0/AutoMeetsSlide14-13.delta" sparkle:deltaFrom="13" length="91282" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="980432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="YICDeA3gruF2Y00oivX0wPHSxpZTTh8r9453a35Heqv4X99/2sauyee0e13xCAdsqJvAkmtj2Y3gzEvaiie3Ag=="/>
                 <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.0/AutoMeetsSlide14-12.delta" sparkle:deltaFrom="12" length="90790" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="980432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="xHWy6x1PMp9fSVcvU2V94ogK9ieitlp+dexrXihrqGYOccpOwInNzCO/k2dn1prMA7GXZeihWDWN+oZnadquCQ=="/>
@@ -22,19 +36,10 @@
             <sparkle:shortVersionString>1.4.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.0/AutoMeetsSlide-1.4.1.dmg" length="57380062" type="application/octet-stream" sparkle:edSignature="RH5ngEKwIVxFda2xIfWqGIM8i6kjQVLjlqPCtUKsa4LemHf3wRaG/BvM7vM3/NXbwPZkxIB/X4/fErMiNQFuBg=="/>
+            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.1/AutoMeetsSlide-1.4.1.dmg" length="57380062" type="application/octet-stream" sparkle:edSignature="RH5ngEKwIVxFda2xIfWqGIM8i6kjQVLjlqPCtUKsa4LemHf3wRaG/BvM7vM3/NXbwPZkxIB/X4/fErMiNQFuBg=="/>
             <sparkle:deltas>
                 <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.4.1/AutoMeetsSlide13-12.delta" sparkle:deltaFrom="12" length="60582" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="980432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="p5mOnqy0Np47O3RYma9OPn+IK63vinuyQjPW9uAFG4RV7W2C4gE/ULS8i8zPRNyI3wtMsUb1yr1XtDBuGD1iBA=="/>
             </sparkle:deltas>
-        </item>
-        <item>
-            <title>1.4.0</title>
-            <pubDate>Wed, 25 Feb 2026 12:14:21 +0900</pubDate>
-            <sparkle:version>12</sparkle:version>
-            <sparkle:shortVersionString>1.4.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.5.0/AutoMeetsSlide-1.4.0.dmg" length="57377851" type="application/octet-stream" sparkle:edSignature="M+24PcrpqD/nuhpwQx72xTqG5468YKZOEgEGWrDVtShqsuBvFS9q3DtH9cZyyt7cjLS/cJdOBX/OxDi1u033DA=="/>
         </item>
     </channel>
 </rss>

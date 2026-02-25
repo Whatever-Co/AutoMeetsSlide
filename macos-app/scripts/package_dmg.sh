@@ -7,7 +7,10 @@ DERIVED_DATA_DIR="${BUILD_DIR}/DerivedData"
 
 APP_NAME="AutoMeetsSlide"
 VOL_NAME="AutoMeetsSlide"
-DMG_NAME="AutoMeetsSlide"
+
+# Read version from project.yml for versioned DMG name
+VERSION=$(grep 'MARKETING_VERSION:' "${ROOT_DIR}/project.yml" | sed 's/.*: *"\(.*\)".*/\1/')
+DMG_NAME="AutoMeetsSlide-${VERSION}"
 
 DMG_ROOT="${BUILD_DIR}/dmg-root"
 OUT_DMG="${BUILD_DIR}/${DMG_NAME}.dmg"

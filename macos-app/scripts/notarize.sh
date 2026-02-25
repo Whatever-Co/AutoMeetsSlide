@@ -19,12 +19,40 @@ ZIP_PATH="${WORK_DIR}/${APP_NAME}.zip"
 
 echo "=== Signing $APP_NAME.app ==="
 
-# Sign all nested frameworks and libraries first
-find "$APP_PATH" -type f \( -name "*.dylib" -o -name "*.framework" \) | while read -r item; do
-  codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID" "$item" 2>/dev/null || true
+# Sign all nested bundles and binaries from inside out
+# 1. Sign all Mach-O binaries inside Frameworks/ (deepest first)
+find "$APP_PATH/Contents/Frameworks" -type f -perm +111 | sort -r | while read -r binary; do
+  if file "$binary" | grep -q "Mach-O"; then
+    echo "Signing $(echo "$binary" | sed "s|$APP_PATH/||")..."
+    codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID" "$binary"
+  fi
 done
 
-# Sign all executables in Contents/MacOS/ (except the main app binary which will be signed with the bundle)
+# 2. Sign nested .app bundles inside Frameworks/
+find "$APP_PATH/Contents/Frameworks" -name "*.app" -type d | while read -r nested_app; do
+  echo "Signing bundle $(basename "$nested_app")..."
+  codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID" "$nested_app"
+done
+
+# 3. Sign XPC services inside Frameworks/
+find "$APP_PATH/Contents/Frameworks" -name "*.xpc" -type d | while read -r xpc; do
+  echo "Signing XPC $(basename "$xpc")..."
+  codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID" "$xpc"
+done
+
+# 4. Sign framework bundles
+find "$APP_PATH/Contents/Frameworks" -name "*.framework" -type d -maxdepth 1 | while read -r fw; do
+  echo "Signing framework $(basename "$fw")..."
+  codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID" "$fw"
+done
+
+# 5. Sign dylibs
+find "$APP_PATH" -name "*.dylib" -type f | while read -r dylib; do
+  echo "Signing $(basename "$dylib")..."
+  codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID" "$dylib"
+done
+
+# 6. Sign all executables in Contents/MacOS/ (except the main app binary)
 MACOS_DIR="$APP_PATH/Contents/MacOS"
 MAIN_BINARY=$(defaults read "$APP_PATH/Contents/Info.plist" CFBundleExecutable 2>/dev/null || basename "$APP_PATH" .app)
 for exe in "$MACOS_DIR"/*; do
@@ -34,7 +62,7 @@ for exe in "$MACOS_DIR"/*; do
   fi
 done
 
-# Sign the main app bundle
+# 7. Sign the main app bundle
 codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID" "$APP_PATH"
 
 # Verify signature

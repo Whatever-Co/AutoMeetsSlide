@@ -30,5 +30,9 @@
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2026 Saqoosha. All rights reserved.</string>
+	<key>SUFeedURL</key>
+	<string>https://whatever-co.github.io/AutoMeetsSlide/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>CfVhssjAg+ilpn08nLc2CvEID3s0PorWOS4lwUBfGto=</string>
 </dict>
 </plist>

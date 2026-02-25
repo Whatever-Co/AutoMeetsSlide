@@ -40,7 +40,8 @@ AutoMeetsSlide/
 │       ├── generate_icon.py          # Generate app icon with squircle mask
 │       ├── notarize.sh               # Code signing & notarization
 │       ├── package_dmg.sh            # DMG packaging (build + notarize + DMG)
-│       └── release.sh                # Full release workflow
+│       ├── release.sh                # Full release workflow
+│       └── update_appcast.sh         # Sparkle appcast generation & gh-pages push
 │
 ├── python-sidecar/               # Python CLI for NotebookLM API
 │   ├── notebooklm_sidecar.py     # Main CLI (login, check-auth, process)
@@ -58,6 +59,7 @@ AutoMeetsSlide/
 - **AuthService**: Extracts Safari cookies for silent authentication
 - **NotificationManager**: macOS native notifications for completion/failure (click to open PDF)
 - **FolderWatcherService**: Watches a folder for new files and auto-queues them
+- **Sparkle**: Auto-update via SPUStandardUpdaterController (appcast on gh-pages)
 
 ### Python Sidecar
 - Compiled binary using PyInstaller
@@ -128,7 +130,7 @@ cd macos-app
 ./scripts/release.sh <version>   # e.g., ./scripts/release.sh 1.0.0
 ```
 
-This will bump version, build DMG, commit, tag, and create GitHub Release.
+This will bump version, build DMG, commit, tag, create GitHub Release, and update Sparkle appcast.
 
 ## Key Files
 
@@ -142,6 +144,15 @@ This will bump version, build DMG, commit, tag, and create GitHub Release.
 | `notebooklm_sidecar.py` | NotebookLM API wrapper |
 | `project.yml` | XcodeGen project definition |
 | `generate_icon.py` | App icon generator with squircle mask |
+| `update_appcast.sh` | Sparkle appcast generation & gh-pages push |
+
+## Auto-Update (Sparkle)
+
+- **Framework**: [Sparkle 2.x](https://sparkle-project.org/) via SPM
+- **Appcast URL**: `https://whatever-co.github.io/AutoMeetsSlide/appcast.xml` (hosted on gh-pages branch)
+- **EdDSA Key**: Stored in macOS Keychain (shared with Sessylph); public key in Info.plist (`SUPublicEDKey`)
+- **Menu**: AutoMeetsSlide → Check for Updates…
+- **Release flow**: `release.sh` → `package_dmg.sh` → GitHub Release → `update_appcast.sh` → gh-pages
 
 ## Notes
 

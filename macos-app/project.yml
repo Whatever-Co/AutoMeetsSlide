@@ -6,10 +6,15 @@ options:
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
 
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: 2.9.0
+
 settings:
   base:
-    MARKETING_VERSION: "1.3.2"
-    CURRENT_PROJECT_VERSION: "9"
+    MARKETING_VERSION: "1.4.0"
+    CURRENT_PROJECT_VERSION: "12"
     SWIFT_VERSION: "5.9"
     MACOSX_DEPLOYMENT_TARGET: "14.0"
 
@@ -33,6 +38,9 @@ targets:
         files:
           - path: Sources/AutoMeetsSlide/Resources/Binaries/notebooklm-cli
             codeSign: false
+    dependencies:
+      - package: Sparkle
+        product: Sparkle
     settings:
       APP_INTENTS_METADATA_EXTRACTION_ENABLED: NO
       OTHER_SWIFT_FLAGS: "$(inherited) -Xfrontend -disable-autolink-framework -Xfrontend AppIntents"
@@ -61,3 +69,5 @@ targets:
         NSHighResolutionCapable: true
         LSApplicationCategoryType: public.app-category.productivity
         NSHumanReadableCopyright: "© 2026 Saqoosha. All rights reserved."
+        SUFeedURL: "https://whatever-co.github.io/AutoMeetsSlide/appcast.xml"
+        SUPublicEDKey: "CfVhssjAg+ilpn08nLc2CvEID3s0PorWOS4lwUBfGto="

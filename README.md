@@ -15,6 +15,7 @@
 - **Settings** - Customizable system prompt, download folder, and watch folder (via Preferences)
 - **Native Notifications** - macOS notifications on completion (click to open PDF)
 - **Silent Authentication** - Uses Safari cookies for seamless Google login
+- **Auto-Update** - Built-in update checker via Sparkle (Check for Updates… in app menu)
 
 ## Installation
 

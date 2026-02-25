@@ -3,13 +3,25 @@
     <channel>
         <title>AutoMeetsSlide</title>
         <item>
+            <title>1.4.1</title>
+            <pubDate>Wed, 25 Feb 2026 12:20:58 +0900</pubDate>
+            <sparkle:version>13</sparkle:version>
+            <sparkle:shortVersionString>1.4.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.4.1/AutoMeetsSlide-1.4.1.dmg" length="57380062" type="application/octet-stream" sparkle:edSignature="RH5ngEKwIVxFda2xIfWqGIM8i6kjQVLjlqPCtUKsa4LemHf3wRaG/BvM7vM3/NXbwPZkxIB/X4/fErMiNQFuBg=="/>
+            <sparkle:deltas>
+                <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.4.1/AutoMeetsSlide13-12.delta" sparkle:deltaFrom="12" length="60582" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="980432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="p5mOnqy0Np47O3RYma9OPn+IK63vinuyQjPW9uAFG4RV7W2C4gE/ULS8i8zPRNyI3wtMsUb1yr1XtDBuGD1iBA=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>1.4.0</title>
             <pubDate>Wed, 25 Feb 2026 12:14:21 +0900</pubDate>
             <sparkle:version>12</sparkle:version>
             <sparkle:shortVersionString>1.4.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.4.0/AutoMeetsSlide-1.4.0.dmg" length="57377851" type="application/octet-stream" sparkle:edSignature="M+24PcrpqD/nuhpwQx72xTqG5468YKZOEgEGWrDVtShqsuBvFS9q3DtH9cZyyt7cjLS/cJdOBX/OxDi1u033DA=="/>
+            <enclosure url="https://github.com/Whatever-Co/AutoMeetsSlide/releases/download/v1.4.1/AutoMeetsSlide-1.4.0.dmg" length="57377851" type="application/octet-stream" sparkle:edSignature="M+24PcrpqD/nuhpwQx72xTqG5468YKZOEgEGWrDVtShqsuBvFS9q3DtH9cZyyt7cjLS/cJdOBX/OxDi1u033DA=="/>
         </item>
     </channel>
 </rss>

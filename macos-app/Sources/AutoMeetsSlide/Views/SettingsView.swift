@@ -69,6 +69,16 @@ struct SettingsView: View {
                 }
             }
 
+            // About
+            Section {
+                HStack {
+                    Text("Version")
+                    Spacer()
+                    Text("\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?") (\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "?"))")
+                        .foregroundStyle(.secondary)
+                }
+            }
+
             // Auto Import
             Section("Auto Import") {
                 if let watchPath = folderWatcher.watchedFolderPath {
